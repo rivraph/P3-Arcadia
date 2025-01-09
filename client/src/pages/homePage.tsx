@@ -1,10 +1,10 @@
 import { NavLink } from "react-router-dom";
-import styles from "../styles/homePage.module.css";
+import "../styles/homePage.css";
 
 function homePage() {
   return (
     <>
-      <div className={styles.maindiv}>
+      <div className="maindiv">
         <h1>
           Welcome to ARCADIA : The fusion of online retro gaming and authentic
           arcade fun
@@ -35,8 +35,8 @@ function homePage() {
           🎮 Join ARCADIA now. Connect, play, win... and meet us indoors for
           authentic arcade fun! 🎮
         </h2>
-        <NavLink to="/Gamelist" className="button-link">
-          Suite
+        <NavLink to="/Register" className="button-link-homepage">
+          Register Now
         </NavLink>
       </div>
     </>
