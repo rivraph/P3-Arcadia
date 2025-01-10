@@ -1,15 +1,15 @@
 .header {
   width: 100vw;
   display: grid;
-  grid-template-columns: 40% 20% 40%;
-  grid-template-rows: 20%;
+  grid-template-columns: 44% 12% 44%;
+  grid-template-rows: 10vh;
   justify-content: center;
 }
 
 img {
   display: grid;
   grid-column: 2 / 3;
-  height: 200px;
+  height: 180px;
   justify-self: center;
 }
 
