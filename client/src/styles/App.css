@@ -22,3 +22,26 @@ body {
   justify-content: space-between;
   align-items: center;
 }
+
+.page {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-image: url("../public/assets/salle_Arcadia_2.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+  text-align: center;
+}
+
+header {
+  margin-bottom: 3rem;
+}
+
+.text-box {
+  flex-grow: 1;
+}
+
+footer {
+  color: white;
+}
