@@ -2,6 +2,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+// import { About } from "./pages/About"
 
 import App from "./pages/App";
 import Connexion from "./pages/Connexion";
@@ -13,7 +14,7 @@ import HomePage from "./pages/homePage";
 // Import additional components for new routes
 // Try creating these components in the "pages" folder
 
-// import About from "./pages/About";
+import About from "./pages/About";
 // import Contact from "./pages/Contact";
 
 /* ************************************************************************* */
@@ -44,8 +45,15 @@ const router = createBrowserRouter([
         path: "Register",
         element: <Register />,
       },
+      {
+        path: "/about", // The about path
+        element: <About />, // Renders the About component for the about page
+        },
     ],
   },
+
+  
+
 ]);
 
 /* ************************************************************************* */
