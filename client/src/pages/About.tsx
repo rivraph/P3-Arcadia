@@ -1,5 +1,5 @@
 import type React from "react";
-import "./about.css";
+import "../styles/About.css";
 
 const About: React.FC = () => {
   return (
