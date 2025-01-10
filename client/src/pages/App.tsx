@@ -1,19 +1,14 @@
 import "../styles/App.css";
-
+import GameList from "./Gamelist";
 function App() {
   return (
-    <>
+    <div className="page">
       <header>
         <h1 className="logo">ARCADIA</h1>
       </header>
 
       <main className="text-box">
-        <hgroup className="block-primary">
-          <h2 className="block-primary-main">Bientôt ARCADIA</h2>
-          <p className="block-primary-sub">
-            Des jeux, des jeux et encore des jeux d'arcade
-          </p>
-        </hgroup>
+        <GameList />
       </main>
 
       <footer>
@@ -27,7 +22,7 @@ function App() {
           Max, Raph, Vinc, Sab
         </a>
       </footer>
-    </>
+    </div>
   );
 }
 
