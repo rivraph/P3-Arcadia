@@ -3,7 +3,7 @@ import "../styles/MainGame.css";
 function MainGame() {
   return (
     <>
-      <h1>MainGame</h1>
+      <p>en cours de création</p>
     </>
   );
 }

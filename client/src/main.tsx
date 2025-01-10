@@ -4,10 +4,12 @@ import { createRoot } from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 // import { About } from "./pages/About"
 
-/* ************************************************************************* */
-
-// Import the main app component
 import App from "./pages/App";
+import Connexion from "./pages/Connexion";
+import GameList from "./pages/Gamelist";
+import MainGame from "./pages/MainGame";
+import Register from "./pages/Register";
+import HomePage from "./pages/homePage";
 
 // Import additional components for new routes
 // Try creating these components in the "pages" folder
@@ -21,13 +23,37 @@ import About from "./pages/About";
 // You can add more routes as you build out your app!
 const router = createBrowserRouter([
   {
-    path: "/", // The root path
-    element: <App />, // Renders the App component for the home page
+    element: <App />,
+    children: [
+      {
+        path: "*",
+        element: <HomePage />,
+      },
+      {
+        path: "GameList",
+        element: <GameList />,
+      },
+      {
+        path: "MainGame",
+        element: <MainGame />,
+      },
+      {
+        path: "Connexion",
+        element: <Connexion />,
+      },
+      {
+        path: "Register",
+        element: <Register />,
+      },
+      {
+        path: "/about", // The about path
+        element: <About />, // Renders the About component for the about page
+        },
+    ],
   },
-  {
-    path: "/about", // The about path
-    element: <About />, // Renders the About component for the about page
-  },
+
+  
+
 ]);
 
 /* ************************************************************************* */
