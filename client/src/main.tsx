@@ -46,14 +46,11 @@ const router = createBrowserRouter([
         element: <Register />,
       },
       {
-        path: "/about", // The about path
-        element: <About />, // Renders the About component for the about page
-        },
+        path: "/about",
+        element: <About />,
+      },
     ],
   },
-
-  
-
 ]);
 
 /* ************************************************************************* */
