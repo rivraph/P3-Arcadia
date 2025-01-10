@@ -4,7 +4,10 @@ import { createRoot } from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import App from "./pages/App";
+import Connexion from "./pages/Connexion";
 import GameList from "./pages/Gamelist";
+import MainGame from "./pages/MainGame";
+import Register from "./pages/Register";
 import HomePage from "./pages/homePage";
 
 // Import additional components for new routes
@@ -28,6 +31,18 @@ const router = createBrowserRouter([
       {
         path: "GameList",
         element: <GameList />,
+      },
+      {
+        path: "MainGame",
+        element: <MainGame />,
+      },
+      {
+        path: "Connexion",
+        element: <Connexion />,
+      },
+      {
+        path: "Register",
+        element: <Register />,
       },
     ],
   },

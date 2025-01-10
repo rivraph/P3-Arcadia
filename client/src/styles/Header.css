@@ -1,3 +1,19 @@
+.header {
+  width: 100vw;
+  display: grid;
+  grid-template-columns: 40% 20% 40%;
+  grid-template-rows: 20%;
+  justify-content: center;
+}
+
 img {
+  display: grid;
+  grid-column: 2 / 3;
   height: 200px;
+  justify-self: center;
+}
+
+.headerconnexion {
+  display: grid;
+  grid-column: 3 / 4;
 }
