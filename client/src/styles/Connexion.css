@@ -4,3 +4,11 @@
   align-items: flex-end;
   justify-content: space-around;
 }
+
+.mainconnexion label {
+  background-color: #a14ed9c7;
+  padding: 5px;
+  border-radius: 10px;
+  box-shadow: -3px 2px 2px #a14ed9c7;
+  text-shadow: 2px 2px 5px black;
+}

@@ -1,7 +1,7 @@
 .header {
   width: 100vw;
   display: grid;
-  grid-template-columns: 44% 12% 44%;
+  grid-template-columns: 45% 10% 45%;
   grid-template-rows: 10vh;
   justify-content: center;
 }
@@ -19,12 +19,15 @@
   grid-column: 1 / 2;
   justify-content: center;
   align-items: end;
-  background: grey;
+  background-color: #a14ed9c7;
   padding: 5px;
   cursor: pointer;
   border-radius: 10px;
   height: 45%;
   width: 25%;
+  font-size: 20px;
+  color: white;
+  text-shadow: 2px 2px 5px black;
 }
 
 .list-group {

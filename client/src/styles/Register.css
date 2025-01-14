@@ -1,10 +1,15 @@
 .main-register {
   display: flex;
   flex-direction: column;
-  background-color: #302559;
+  background-color: #a14ed9c7;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0px 0px 5px 5px #513973;
+  box-shadow: 0px 0px 5px 5px #a14ed9c7;
+}
+
+.main-register H1 {
+  text-align: center;
+  text-shadow: 2px 2px 5px black;
 }
 
 .labelgroup {

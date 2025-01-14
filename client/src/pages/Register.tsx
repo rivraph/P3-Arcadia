@@ -5,7 +5,7 @@ function Register() {
   return (
     <>
       <div className="main-register">
-        <h1>Register</h1>
+        <h1>REGISTER</h1>
         <form className="labelgroup">
           <label htmlFor="username">Firstname:</label>
           <input type="text" id="firstname" name="firstname" required />
