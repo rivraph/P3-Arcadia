@@ -6,6 +6,55 @@
   justify-content: center;
 }
 
+.menucontener {
+  display: flex;
+  justify-content: end;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 20px 0 0;
+}
+
+.menubutton {
+  display: grid;
+  grid-column: 1 / 2;
+  justify-content: center;
+  align-items: end;
+  background: grey;
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 10px;
+  height: 45%;
+  width: 25%;
+}
+
+.list-group {
+  display: none;
+  height: 45%;
+  width: 11%;
+  position: absolute;
+  top: 10%;
+  transition-duration: 0.8s ease-in-out;
+  transition-delay: 0, 8s;
+  z-index: 9999;
+}
+
+.limenu {
+  cursor: pointer;
+  background-color: var(--color-primary);
+  overflow: visible;
+  transition: 0.5s ease-in-out;
+  overflow-y: repeat-y;
+  z-index: 1000;
+  background-color: rgba(128, 128, 128, 0.504);
+  padding: 3px;
+  text-decoration: none;
+  border-radius: 10px;
+  border: 5px black solid;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
 img {
   display: grid;
   grid-column: 2 / 3;
