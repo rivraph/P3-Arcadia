@@ -16,6 +16,7 @@ import HomePage from "./pages/homePage";
 // Try creating these components in the "pages" folder
 
 import About from "./pages/About";
+import Profil from "./pages/Profil";
 // import Contact from "./pages/Contact";
 
 /* ************************************************************************* */
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
       {
         path: "/Rewards",
         element: <Rewards />,
+      },
+      {
+        path: "/profil",
+        element: <Profil />,
       },
     ],
   },

@@ -4,6 +4,7 @@ CREATE TABLE users (
   firstname VARCHAR(30) NOT NULL,
   lastname VARCHAR(30) NOT NULL,
   email VARCHAR(40) NOT NULL,
+  password VARCHAR(255) NOT NULL,
   tel_num VARCHAR(15) NOT NULL, -- Numéro de téléphone comme texte
   address VARCHAR(100) NOT NULL,
   zipcode VARCHAR(10) NOT NULL, -- Code postal comme texte
@@ -12,7 +13,6 @@ CREATE TABLE users (
   picture VARCHAR(200) NOT NULL,
   birthdate DATE NOT NULL,
   registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  password VARCHAR(255) NOT NULL,
   role VARCHAR(20) NOT NULL
 );
 
@@ -50,9 +50,9 @@ CREATE TABLE rewards (
 );
 
 -- Inserts dans Users
-INSERT INTO users (id, firstname, lastname, email, tel_num, address, zipcode, city, country, picture, birthdate, registration_date, password, role)
+INSERT INTO users (id, firstname, lastname, email, password, tel_num, address, zipcode, city, country, picture, birthdate, registration_date, password, role)
 VALUES
-  (1, "Raphaël", "Rivière", "raphaelriviere87@gmail.com", "0663778677", "13 rue des estivenques", "30660", "Gallargues le Montueux", "France", "../public/assets/images/favicon.png", "1987-10-14", "2025-01-15", "raphael", "user");
+  (1, "Raphaël", "Rivière", "raphaelriviere87@gmail.com", "raphael", "0663778677", "13 rue des estivenques", "30660", "Gallargues le Montueux", "France", "../public/assets/images/favicon.png", "1987-10-14", "2025-01-15", "user");
 
 -- Inserts dans Scores
 INSERT INTO scores (id, users_id, game_max_score_id, game_max_score)
@@ -69,7 +69,8 @@ VALUES
 -- Inserts dans Games
 INSERT INTO games (id, game_name)
 VALUES
-  (1, "Walking Hell");
+  (1, "Walking Hell"),
+  (2, "Meteoritel");
 
 -- Inserts dans Rewards
 INSERT INTO rewards (id, article_id, user_id, exchange_date, transaction_number)
