@@ -56,7 +56,7 @@ function Header() {
           </li>
           <li
             className="limenu"
-            onClick={() => handleMenuClick("/MainGame")}
+            onClick={() => handleMenuClick("/Rewards")}
             onKeyUp={handleKeyPress}
           >
             Shop
