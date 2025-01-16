@@ -42,7 +42,7 @@ function Header() {
         >
           <li
             className="limenu"
-            onClick={() => handleMenuClick("/MainGame")}
+            onClick={() => handleMenuClick("/profil")}
             onKeyUp={handleKeyPress}
           >
             Profil

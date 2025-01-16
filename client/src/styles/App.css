@@ -2,6 +2,19 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  --color1-: #a14ed9c7;
+  --color2-: #c90000da;
+  --color3-: rgba(120, 120, 120, 0.644);
+  --color4-: #eee;
+  --color5-: #bc85f2;
+  --color6-: #302559;
+  --color7-: #044bd9;
+  --color8-: #f2c53d;
+  --color9-: #a14ed9;
+  --color10-: #d90b1c;
+  --color11-: #8c4e37;
+  --color12-: #05aff2;
+  --color13-: #683ca6;
 }
 
 body {
@@ -13,6 +26,7 @@ body {
 }
 
 #root {
+  height: 100%;
   min-height: 100vh;
   background-image: url("/assets/salle_Arcadia_2.jpg");
   background-size: cover;
