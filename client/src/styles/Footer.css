@@ -1,0 +1,15 @@
+.mainfooter {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  height: 6vh;
+  gap: 4em;
+  align-items: center;
+  background-color: #c90000da;
+  h1,
+  h2 {
+    font-size: 20px;
+    margin: 0;
+    text-shadow: 2px 2px 5px black;
+  }
+}
