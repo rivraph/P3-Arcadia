@@ -20,8 +20,8 @@ function Profil() {
 
   return (
     <>
-      <h1 id="profiltitle">Profil</h1>
       <div className="profil">
+        <h1 id="profiltitle">Profil</h1>
         <form className="profilform">
           <label htmlFor="firstname">Firstname</label>
           <input

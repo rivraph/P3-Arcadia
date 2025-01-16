@@ -1,5 +1,6 @@
-.profil {
-  display: flex;
+.profil h1 {
+  text-align: center;
+  font-size: 40px;
 }
 
 .toggle-button button {
@@ -12,9 +13,27 @@
 
 .profilform {
   background-color: #a14ed9c7;
+  box-shadow: 1px 1px 20px 20px #a14ed9c7;
   display: flex;
   flex-direction: column;
-  padding: 0.5em;
+  padding: 1em 2.5em 1em 2.5em;
   border-radius: 10px;
   width: 100%;
+  gap: 5px;
+}
+
+.profilform label {
+  color: Black;
+  font-size: 20px;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 2px black;
+}
+
+.profilform input {
+  width: 400px;
+  background: rgba(120, 120, 120, 0.644);
+  border: none;
+  padding: 0.2em;
+  color: White;
+  text-transform: lowercase;
 }
