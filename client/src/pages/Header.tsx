@@ -1,20 +1,27 @@
 import "../styles/Header.css";
-import { useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Connexion from "./Connexion";
 
-function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const menuRef = useRef<HTMLUListElement>(null);
+interface headerProps {
+  isMenuOpen: boolean;
+  setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  menuRef: React.RefObject<HTMLDivElement>;
+}
+
+function Header({ isMenuOpen, setIsMenuOpen, menuRef }: headerProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const isHomePage =
     location.pathname === "/" || location.pathname === "/Register";
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+    if (isMenuOpen === false) {
+      setIsMenuOpen(true);
+    }
+    if (isMenuOpen === true) {
+      setIsMenuOpen(false);
+    }
   };
-  console.info(isMenuOpen);
 
   const handleMenuClick = (path: string) => {
     navigate(path);
@@ -28,7 +35,7 @@ function Header() {
   };
 
   return (
-    <div className="header">
+    <div className="header" ref={menuRef}>
       <div className="menucontener">
         {!isHomePage && (
           <button type="button" className="menubutton" onClick={toggleMenu}>
@@ -37,43 +44,56 @@ function Header() {
         )}
         <ul
           className="list-group"
-          ref={menuRef}
           style={{ display: isMenuOpen ? "block" : "none" }}
         >
+          <li
+            className="limenu"
+            onClick={() => handleMenuClick("/gameList")}
+            onKeyUp={handleKeyPress}
+          >
+            Games list
+          </li>
           <li
             className="limenu"
             onClick={() => handleMenuClick("/profil")}
             onKeyUp={handleKeyPress}
           >
-            Profil
+            My Profile
           </li>
           <li
             className="limenu"
-            onClick={() => handleMenuClick("/MainGame")}
+            onClick={() => handleMenuClick("/scoreshistory")}
             onKeyUp={handleKeyPress}
           >
-            History
+            Scores History
           </li>
           <li
             className="limenu"
-            onClick={() => handleMenuClick("/Rewards")}
+            onClick={() => handleMenuClick("rewards")}
             onKeyUp={handleKeyPress}
           >
-            Shop
+            Rewards
           </li>
           <li
             className="limenu"
-            onClick={() => handleMenuClick("/MainGame")}
+            onClick={() => handleMenuClick("rewardshistory")}
             onKeyUp={handleKeyPress}
           >
-            Contact
+            Rewards History
           </li>
           <li
             className="limenu"
-            onClick={() => handleMenuClick("/about")}
+            onClick={() => handleMenuClick("contact")}
             onKeyUp={handleKeyPress}
           >
-            Game Center
+            Contact us
+          </li>
+          <li
+            className="limenu"
+            onClick={() => handleMenuClick("about")}
+            onKeyUp={handleKeyPress}
+          >
+            Arcadia PlayStore
           </li>
           <li
             className="limenu"

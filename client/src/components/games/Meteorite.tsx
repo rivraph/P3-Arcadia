@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import "../styles/Falling.css";
+import "./Meteorite.css";
 import { useEffect } from "react";
 
 const FallingObjectsGame: React.FC = () => {

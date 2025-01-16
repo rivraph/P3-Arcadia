@@ -22,7 +22,7 @@ const GameList = () => {
   };
 
   return (
-    <>
+    <div className="gamelist-main">
       {fullscreenImage && (
         <button
           type="button"
@@ -110,7 +110,7 @@ const GameList = () => {
           <img src="../assets/arcadiagamescreen.png" alt="" />
         </button>
       </div>
-    </>
+    </div>
   );
 };
 
