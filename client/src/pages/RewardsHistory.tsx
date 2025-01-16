@@ -2,9 +2,9 @@ import "../styles/RewardsHistory.css";
 
 function RewardsHistory() {
   return (
-    <>
-      <h1>RewardsHistory</h1>
-    </>
+    <div className="rewardsmaincontener">
+      <h1>Rewards History</h1>
+    </div>
   );
 }
 

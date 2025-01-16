@@ -19,7 +19,7 @@ function Profil() {
   };
 
   return (
-    <>
+    <div className="mainprofil">
       <div className="profil">
         <h1 id="profiltitle">Profil</h1>
         <form className="profilform">
@@ -119,19 +119,18 @@ function Profil() {
           <label htmlFor="role">Role</label>
           <input type="text" id="role" name="rolee" readOnly={!edit} required />
         </form>
-
-        <div className="toggle-button">
-          <button
-            type="button"
-            onClick={handleEditClick}
-            onKeyDown={handleKeyPress}
-            aria-label="Toggle edit mode"
-          >
-            {edit ? "✅" : "🖌"}
-          </button>
-        </div>
       </div>
-    </>
+      <div className="toggle-button">
+        <button
+          type="button"
+          onClick={handleEditClick}
+          onKeyDown={handleKeyPress}
+          aria-label="Toggle edit mode"
+        >
+          {edit ? "✅" : "🖌"}
+        </button>
+      </div>
+    </div>
   );
 }
 

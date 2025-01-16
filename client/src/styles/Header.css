@@ -34,7 +34,8 @@
 
 .list-group {
   display: none;
-  height: 45%;
+  background-color: #a14ed9c7;
+  height: auto;
   width: 11%;
   position: absolute;
   top: 10%;
@@ -50,14 +51,18 @@
   transition: 0.5s ease-in-out;
   overflow-y: repeat-y;
   z-index: 1000;
-  background-color: rgba(128, 128, 128, 0.504);
   padding: 3px;
   text-decoration: none;
   border-radius: 10px;
-  border: 5px black solid;
   display: flex;
   justify-content: center;
   gap: 5px;
+}
+
+.limenu:hover {
+  background-color: var(--color2-);
+  transition-duration: 0.1s;
+  transition-delay: 0, 0.2s;
 }
 
 img {

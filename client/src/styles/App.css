@@ -15,6 +15,9 @@
   --color11-: #8c4e37;
   --color12-: #05aff2;
   --color13-: #683ca6;
+  --color14-: #db2fcd;
+  --color15-: #a53344;
+  --color16-: #2797a6;
 }
 
 body {
@@ -26,8 +29,7 @@ body {
 }
 
 #root {
-  height: 100%;
-  min-height: 100vh;
+  height: 100vh;
   background-image: url("/assets/salle_Arcadia_2.jpg");
   background-size: cover;
   background-position: top;

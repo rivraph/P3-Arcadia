@@ -1,10 +1,15 @@
+.mainregistercontener {
+  height: 100vh;
+}
+
 .main-register {
   display: flex;
   flex-direction: column;
   background-color: #a14ed9c7;
-  padding: 20px;
+  padding: 15px;
   border-radius: 10px;
   box-shadow: 0px 0px 5px 5px #a14ed9c7;
+  margin-top: 100px;
 }
 
 .main-register H1 {
@@ -21,7 +26,7 @@
   padding: 5px 10px;
   font-size: 16px;
   border-radius: 10px;
-  background-color: #f2d53d;
+  background-color: var(--color8-);
   border: none;
   color: Black;
   text-align: center;
@@ -31,6 +36,7 @@
 }
 
 .button-link-register:hover {
-  background-color: #d90b1c;
+  background-color: var(--color7-);
+  color: white;
   scale: 1.2;
 }
