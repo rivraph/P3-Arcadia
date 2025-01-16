@@ -9,6 +9,7 @@ import Connexion from "./pages/Connexion";
 import GameList from "./pages/Gamelist";
 import MainGame from "./pages/MainGame";
 import Register from "./pages/Register";
+import Rewards from "./pages/Rewards";
 import HomePage from "./pages/homePage";
 
 // Import additional components for new routes
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
       {
         path: "/about",
         element: <About />,
+      },
+      {
+        path: "/Rewards",
+        element: <Rewards />,
       },
     ],
   },
