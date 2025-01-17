@@ -1,6 +1,6 @@
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
-import "../Styles/WalkingDead.css";
+import "./WalkingHell.css";
 
 const WalkingDead: React.FC = () => {
   const canvasWidth = 1000;

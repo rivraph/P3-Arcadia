@@ -2,9 +2,9 @@ import "../styles/ScoresHistory.css";
 
 function ScoresHistory() {
   return (
-    <>
-      <h1>ScoresHistory</h1>
-    </>
+    <div className="scoresmaincontener">
+      <h1>Scores History</h1>
+    </div>
   );
 }
 

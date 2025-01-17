@@ -3,7 +3,7 @@ import "../styles/homePage.css";
 
 function homePage() {
   return (
-    <>
+    <div className="mainhomepage">
       <div className="maindiv">
         <h1>
           Welcome to ARCADIA : The fusion of online retro gaming and authentic
@@ -39,7 +39,7 @@ function homePage() {
           Register Now
         </NavLink>
       </div>
-    </>
+    </div>
   );
 }
 

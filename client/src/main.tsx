@@ -16,6 +16,10 @@ import HomePage from "./pages/homePage";
 // Try creating these components in the "pages" folder
 
 import About from "./pages/About";
+import Contact from "./pages/Contact";
+import Profil from "./pages/Profil";
+import RewardsHistory from "./pages/RewardsHistory";
+import ScoresHistory from "./pages/ScoresHistory";
 // import Contact from "./pages/Contact";
 
 /* ************************************************************************* */
@@ -47,12 +51,32 @@ const router = createBrowserRouter([
         element: <Register />,
       },
       {
-        path: "/about",
+        path: "about",
         element: <About />,
       },
       {
-        path: "/Rewards",
+        path: "Rewards",
         element: <Rewards />,
+      },
+      {
+        path: "profil",
+        element: <Profil />,
+      },
+      {
+        path: "scoreshistory",
+        element: <ScoresHistory />,
+      },
+      {
+        path: "rewardshistory",
+        element: <RewardsHistory />,
+      },
+      {
+        path: "contact",
+        element: <Contact />,
+      },
+      {
+        path: "rewardshistory",
+        element: <RewardsHistory />,
       },
     ],
   },

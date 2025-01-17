@@ -3,7 +3,7 @@ import "../styles/Register.css";
 
 function Register() {
   return (
-    <>
+    <div className="mainregistercontener">
       <div className="main-register">
         <h1>REGISTER</h1>
         <form className="labelgroup">
@@ -24,7 +24,7 @@ function Register() {
           </NavLink>
         </form>
       </div>
-    </>
+    </div>
   );
 }
 

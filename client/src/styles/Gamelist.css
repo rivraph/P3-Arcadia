@@ -1,13 +1,16 @@
+.gamelist-main {
+  height: 100vh;
+}
+
 h1 {
   color: rgb(247, 247, 247);
   margin-top: 10px;
 }
 
-
-
 button h2 {
   color: rgb(255, 0, 0);
-
+  position: relative;
+  top: 140px;
 }
 
 .game-list {
