@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 function Connexion() {
   const navigate = useNavigate();
 
-  const handleClick = (path: string) => {
-    navigate(path);
+  const handleClick = () => {
+    navigate("/GameList");
   };
 
   const handleKeyPress = (event: React.KeyboardEvent) => {
@@ -27,7 +27,7 @@ function Connexion() {
           <input
             type="submit"
             value="Submit"
-            onClick={() => handleClick("/GameList")}
+            onClick={handleClick}
             onKeyUp={handleKeyPress}
           />
         </form>

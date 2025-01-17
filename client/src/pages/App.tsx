@@ -4,10 +4,12 @@ import { Outlet } from "react-router-dom";
 import Footer from "./Footer";
 import Header from "./Header";
 
+localStorage.setItem("isUsers", JSON.stringify("false"));
+localStorage.setItem("isAdmin", JSON.stringify("false"));
+
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
-  console.info(menuRef);
 
   const handleClickOutside = useCallback(
     (event: MouseEvent) => {
