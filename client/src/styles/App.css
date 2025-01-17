@@ -29,7 +29,7 @@ body {
 }
 
 #root {
-  height: 100vh;
+  min-height: 100vh;
   background-image: url("/assets/salle_Arcadia_2.jpg");
   background-size: cover;
   background-position: top;

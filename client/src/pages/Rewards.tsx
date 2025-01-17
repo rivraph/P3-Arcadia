@@ -14,7 +14,7 @@ function Rewards() {
         <div className="points-card">
           <img src="../assets/card_mod.webp" alt="Reward Card" />
 
-          <button type="button">Buy for 500 point </button>
+          <button type="button">Buy for 500 points </button>
         </div>
 
         <div className="points-card">
