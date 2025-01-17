@@ -1,123 +1,139 @@
-// Import necessary modules from React and React Router
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-// import { About } from "./pages/About"
+import {
+  Navigate,
+  RouterProvider,
+  createBrowserRouter,
+} from "react-router-dom";
 
+import Admin from "./components/auth/isAdmin";
+import Users from "./components/auth/isUsers";
+import About from "./pages/About";
 import App from "./pages/App";
 import Connexion from "./pages/Connexion";
+import Contact from "./pages/Contact";
 import GameList from "./pages/Gamelist";
 import MainGame from "./pages/MainGame";
+import NotFound from "./pages/NotFound";
+import Profil from "./pages/Profil";
 import Register from "./pages/Register";
 import Rewards from "./pages/Rewards";
-import HomePage from "./pages/homePage";
-
-// Import additional components for new routes
-// Try creating these components in the "pages" folder
-
-import About from "./pages/About";
-import Contact from "./pages/Contact";
-import Profil from "./pages/Profil";
 import RewardsHistory from "./pages/RewardsHistory";
 import ScoresHistory from "./pages/ScoresHistory";
-// import Contact from "./pages/Contact";
+import HomePage from "./pages/homePage";
 
-/* ************************************************************************* */
-
-// Create router configuration with routes
-// You can add more routes as you build out your app!
 const router = createBrowserRouter([
   {
+    path: "/",
+    element: <Navigate to="homepage" />,
+  },
+  {
+    path: "/",
     element: <App />,
     children: [
       {
-        path: "*",
+        path: "homepage",
         element: <HomePage />,
       },
       {
-        path: "GameList",
-        element: <GameList />,
-      },
-      {
-        path: "MainGame",
-        element: <MainGame />,
-      },
-      {
-        path: "Connexion",
-        element: <Connexion />,
-      },
-      {
-        path: "Register",
+        path: "register",
         element: <Register />,
       },
       {
-        path: "about",
-        element: <About />,
+        path: "connexion",
+        element: <Connexion />,
       },
       {
-        path: "Rewards",
-        element: <Rewards />,
+        path: "users",
+        element: <Users />,
+        children: [
+          {
+            path: "gamelist",
+            element: <GameList />,
+          },
+          {
+            path: "profil",
+            element: <Profil />,
+          },
+          {
+            path: "maingame",
+            element: <MainGame />,
+          },
+          {
+            path: "about",
+            element: <About />,
+          },
+          {
+            path: "rewards",
+            element: <Rewards />,
+          },
+          {
+            path: "scoreshistory",
+            element: <ScoresHistory />,
+          },
+          {
+            path: "rewardshistory",
+            element: <RewardsHistory />,
+          },
+          {
+            path: "contact", // Page de contact
+            element: <Contact />,
+          },
+        ],
       },
       {
-        path: "profil",
-        element: <Profil />,
-      },
-      {
-        path: "scoreshistory",
-        element: <ScoresHistory />,
-      },
-      {
-        path: "rewardshistory",
-        element: <RewardsHistory />,
-      },
-      {
-        path: "contact",
-        element: <Contact />,
-      },
-      {
-        path: "rewardshistory",
-        element: <RewardsHistory />,
+        path: "admin",
+        element: <Admin />, // Composant administrateur
+        children: [
+          {
+            path: "adminprofil", // Profil admin
+            element: <Profil />,
+          },
+          {
+            path: "admingamelist", // Liste des jeux pour l'admin
+            element: <GameList />,
+          },
+          {
+            path: "adminmaingame", // Jeu principal pour l'admin
+            element: <MainGame />,
+          },
+          {
+            path: "adminabout", // Page à propos pour l'admin
+            element: <About />,
+          },
+          {
+            path: "adminrewards", // Récompenses admin
+            element: <Rewards />,
+          },
+          {
+            path: "adminscoreshistory", // Historique des scores admin
+            element: <ScoresHistory />,
+          },
+          {
+            path: "adminrewardshistory", // Historique des récompenses admin
+            element: <RewardsHistory />,
+          },
+          {
+            path: "admincontact", // Contact admin
+            element: <Contact />,
+          },
+        ],
       },
     ],
   },
+  {
+    path: "*", // Route de secours pour les pages non trouvées
+    element: <NotFound />, // Page d'erreur 404
+  },
 ]);
 
-/* ************************************************************************* */
-
-// Find the root element in the HTML document
 const rootElement = document.getElementById("root");
 if (rootElement == null) {
   throw new Error(`Your HTML Document should contain a <div id="root"></div>`);
 }
 
-// Render the app inside the root element
 createRoot(rootElement).render(
   <StrictMode>
     <RouterProvider router={router} />
   </StrictMode>,
 );
-
-/**
- * Helpful Notes:
- *
- * 1. Adding More Routes:
- *    To add more pages to your app, first create a new component (e.g., About.tsx).
- *    Then, import that component above like this:
- *
- *    import About from "./pages/About";
- *
- *    Add a new route to the router:
- *
- *      {
- *        path: "/about",
- *        element: <About />,  // Renders the About component
- *      }
- *
- * 2. Try Nested Routes:
- *    For more complex applications, you can nest routes. This lets you have sub-pages within a main page.
- *    Documentation: https://reactrouter.com/en/main/start/tutorial#nested-routes
- *
- * 3. Experiment with Dynamic Routes:
- *    You can create routes that take parameters (e.g., /users/:id).
- *    Documentation: https://reactrouter.com/en/main/start/tutorial#url-params-in-loaders
- */

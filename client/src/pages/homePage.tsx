@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../styles/homePage.css";
 
 function homePage() {
@@ -35,9 +35,9 @@ function homePage() {
           🎮 Join ARCADIA now. Connect, play, win... and meet us indoors for
           authentic arcade fun! 🎮
         </h2>
-        <NavLink to="/Register" className="button-link-homepage">
+        <Link to="/register" className="button-link-homepage">
           Register Now
-        </NavLink>
+        </Link>
       </div>
     </div>
   );
