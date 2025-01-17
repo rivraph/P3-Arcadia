@@ -4,17 +4,31 @@ import { useEffect } from "react";
 
 function Register() {
   const navigate = useNavigate();
+
+  const handleSubmit = () => {
+    if (
+      localStorage.getItem("role") === "admin" &&
+      localStorage.getItem("isAdmin") === "false"
+    ) {
+      localStorage.setItem("isAdmin", "true");
+      window.alert("Register like administrator");
+      navigate("/admin/admingamelist");
+    }
+    if (
+      localStorage.getItem("role") === "user" &&
+      localStorage.getItem("isUsers") === "false"
+    ) {
+      localStorage.setItem("isUsers", "true");
+      window.alert("Register like user");
+      navigate("/users/gamelist");
+    }
+  };
+
   useEffect(() => {
     if (localStorage.getItem("isAdmin") === "true") {
       navigate("users/gamelist");
     }
   }, [navigate]);
-
-  const handleSubmit = () => {
-    localStorage.setItem("isAdmin", "true");
-    console.info("register in progress");
-    navigate("/admin/admingamelist");
-  };
 
   return (
     <div className="mainregistercontener">
