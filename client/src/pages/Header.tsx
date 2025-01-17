@@ -79,6 +79,7 @@ function Header({ isMenuOpen, setIsMenuOpen, menuRef }: headerProps) {
       }
       if (target.textContent === "Disconnect") {
         localStorage.setItem("isUsers", "false");
+        localStorage.setItem("isAdmin", "false");
         navigate("/homepage");
       }
     }
