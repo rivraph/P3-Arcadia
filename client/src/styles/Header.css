@@ -24,17 +24,18 @@
   padding: 5px;
   cursor: pointer;
   border-radius: 10px;
-  height: 45%;
-  width: 25%;
+  height: 60%;
+  width: 20%;
   border: none;
   font-size: 20px;
   color: white;
   text-shadow: 2px 2px 5px black;
+  border: solid 2px black;
 }
 
 .list-group {
   display: none;
-  background-color: #a14ed9c7;
+  background-color: #a14ed9dc;
   height: auto;
   width: 11%;
   position: absolute;
@@ -42,6 +43,7 @@
   transition-duration: 0.8s ease-in-out;
   transition-delay: 0, 8s;
   z-index: 9999;
+  border: solid;
 }
 
 .limenu {
@@ -76,5 +78,5 @@ img {
   display: grid;
   grid-column: 3 / 4;
   justify-self: end;
-  padding-right: 20px;
+  padding-right: 30px;
 }

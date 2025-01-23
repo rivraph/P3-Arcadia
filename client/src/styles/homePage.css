@@ -41,7 +41,7 @@ li {
   text-shadow: 2px 2px 5px black;
 }
 .maindiv h2 {
-  animation: h2 2s infinite; /* Animation en 3 secondes, répétée à l'infini */
+  animation: h2 2s infinite;
 }
 
 @keyframes h2 {
