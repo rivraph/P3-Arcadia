@@ -12,7 +12,9 @@ function Header({ isMenuOpen, setIsMenuOpen, menuRef }: headerProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const isHomePage =
-    location.pathname === "/" || location.pathname === "/Register";
+    location.pathname === "/homepage" ||
+    location.pathname === "/register" ||
+    location.pathname === "/";
 
   const toggleMenu = () => {
     if (isMenuOpen === false) {
@@ -23,8 +25,64 @@ function Header({ isMenuOpen, setIsMenuOpen, menuRef }: headerProps) {
     }
   };
 
-  const handleMenuClick = (path: string) => {
-    navigate(path);
+  const handleMenuClick = (e: React.MouseEvent<HTMLLIElement>) => {
+    const target = e.target as HTMLLIElement;
+    console.info(target.textContent);
+    if (localStorage.getItem("isUsers") === "true") {
+      if (target.textContent === "Games list") {
+        navigate("/users/gamelist");
+      }
+      if (target.textContent === "My Profile") {
+        navigate("/users/profil");
+      }
+      if (target.textContent === "Scores History") {
+        navigate("/users/scoreshistory");
+      }
+      if (target.textContent === "Rewards") {
+        navigate("/users/rewards");
+      }
+      if (target.textContent === "Rewards History") {
+        navigate("/users/rewardshistory");
+      }
+      if (target.textContent === "Contact us") {
+        navigate("/users/contact");
+      }
+      if (target.textContent === "Arcadia PlayStore") {
+        navigate("/users/about");
+      }
+      if (target.textContent === "Disconnect") {
+        localStorage.setItem("isUsers", "false");
+        navigate("/homepage");
+      }
+    }
+    if (localStorage.getItem("isAdmin") === "true") {
+      if (target.textContent === "Games list") {
+        navigate("/admin/admingamelist");
+      }
+      if (target.textContent === "My Profile") {
+        navigate("/admin/adminprofil");
+      }
+      if (target.textContent === "Scores History") {
+        navigate("/admin/adminscoreshistory");
+      }
+      if (target.textContent === "Rewards") {
+        navigate("/admin/adminrewards");
+      }
+      if (target.textContent === "Rewards History") {
+        navigate("/admin/adminrewardshistory");
+      }
+      if (target.textContent === "Contact us") {
+        navigate("/admin/admincontact");
+      }
+      if (target.textContent === "Arcadia PlayStore") {
+        navigate("/admin/adminabout");
+      }
+      if (target.textContent === "Disconnect") {
+        localStorage.setItem("isUsers", "false");
+        localStorage.setItem("isAdmin", "false");
+        navigate("/homepage");
+      }
+    }
     setIsMenuOpen(false);
   };
 
@@ -48,56 +106,56 @@ function Header({ isMenuOpen, setIsMenuOpen, menuRef }: headerProps) {
         >
           <li
             className="limenu"
-            onClick={() => handleMenuClick("/gameList")}
+            onClick={handleMenuClick}
             onKeyUp={handleKeyPress}
           >
             Games list
           </li>
           <li
             className="limenu"
-            onClick={() => handleMenuClick("/profil")}
+            onClick={handleMenuClick}
             onKeyUp={handleKeyPress}
           >
             My Profile
           </li>
           <li
             className="limenu"
-            onClick={() => handleMenuClick("/scoreshistory")}
+            onClick={handleMenuClick}
             onKeyUp={handleKeyPress}
           >
             Scores History
           </li>
           <li
             className="limenu"
-            onClick={() => handleMenuClick("rewards")}
+            onClick={handleMenuClick}
             onKeyUp={handleKeyPress}
           >
             Rewards
           </li>
           <li
             className="limenu"
-            onClick={() => handleMenuClick("rewardshistory")}
+            onClick={handleMenuClick}
             onKeyUp={handleKeyPress}
           >
             Rewards History
           </li>
           <li
             className="limenu"
-            onClick={() => handleMenuClick("contact")}
+            onClick={handleMenuClick}
             onKeyUp={handleKeyPress}
           >
             Contact us
           </li>
           <li
             className="limenu"
-            onClick={() => handleMenuClick("about")}
+            onClick={handleMenuClick}
             onKeyUp={handleKeyPress}
           >
             Arcadia PlayStore
           </li>
           <li
             className="limenu"
-            onClick={() => handleMenuClick("/")}
+            onClick={handleMenuClick}
             onKeyUp={handleKeyPress}
           >
             Disconnect
