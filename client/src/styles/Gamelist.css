@@ -10,9 +10,10 @@ h1 {
 
 
 button h2 {
-  color: rgb(255, 0, 0);
+  color: #a14ed9dc;
   position: relative;
-  top: 140px;
+
+  top: 125px;
 
 }
 
