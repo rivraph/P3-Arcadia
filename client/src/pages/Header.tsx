@@ -28,7 +28,7 @@ function Header({ isMenuOpen, setIsMenuOpen, menuRef }: headerProps) {
   const handleMenuClick = (e: React.MouseEvent<HTMLLIElement>) => {
     const target = e.target as HTMLLIElement;
     console.info(target.textContent);
-    if (localStorage.getItem("isUsers") === "true") {
+    if (localStorage.getItem("role") === "user") {
       if (target.textContent === "Games list") {
         navigate("/users/gamelist");
       }
@@ -55,31 +55,29 @@ function Header({ isMenuOpen, setIsMenuOpen, menuRef }: headerProps) {
         navigate("/homepage");
       }
     }
-    if (localStorage.getItem("isAdmin") === "true") {
+    if (localStorage.getItem("role") === "boss") {
       if (target.textContent === "Games list") {
-        navigate("/admin/admingamelist");
+        navigate("/admin/gamelist");
       }
       if (target.textContent === "My Profile") {
-        navigate("/admin/adminprofil");
+        navigate("/admin/profil");
       }
       if (target.textContent === "Scores History") {
-        navigate("/admin/adminscoreshistory");
+        navigate("/admin/scoreshistory");
       }
       if (target.textContent === "Rewards") {
-        navigate("/admin/adminrewards");
+        navigate("/admin/rewards");
       }
       if (target.textContent === "Rewards History") {
-        navigate("/admin/adminrewardshistory");
+        navigate("/admin/rewardshistory");
       }
       if (target.textContent === "Contact us") {
-        navigate("/admin/admincontact");
+        navigate("/admin/contact");
       }
       if (target.textContent === "Arcadia PlayStore") {
-        navigate("/admin/adminabout");
+        navigate("/admin/about");
       }
       if (target.textContent === "Disconnect") {
-        localStorage.setItem("isUsers", "false");
-        localStorage.setItem("isAdmin", "false");
         navigate("/homepage");
       }
     }
@@ -163,9 +161,7 @@ function Header({ isMenuOpen, setIsMenuOpen, menuRef }: headerProps) {
         </ul>
       </div>
       <img src="/assets/logo.png" alt="logo du site" />
-      <div className="headerconnexion">
-        <Connexion />
-      </div>
+      <div className="headerconnexion">{isHomePage && <Connexion />}</div>
     </div>
   );
 }
