@@ -49,6 +49,7 @@ function Register() {
           role,
         );
         localStorage.setItem("role", role);
+        localStorage.setItem("id", insertUser.id);
         console.info(
           "Rôle enregistré dans localStorage :",
           localStorage.getItem("role"),

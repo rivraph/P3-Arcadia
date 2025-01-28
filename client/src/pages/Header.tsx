@@ -51,7 +51,6 @@ function Header({ isMenuOpen, setIsMenuOpen, menuRef }: headerProps) {
         navigate("/users/about");
       }
       if (target.textContent === "Disconnect") {
-        localStorage.setItem("isUsers", "false");
         navigate("/homepage");
       }
     }

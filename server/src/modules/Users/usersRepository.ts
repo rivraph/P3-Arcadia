@@ -8,7 +8,8 @@ type usersprops = {
   lastname: string;
   email: string;
   password: string;
-  tel_num: string;
+  role: string;
+  tel_num?: string | null;
   address?: string | null;
   zipcode?: string | null;
   city?: string | null;
@@ -16,14 +17,12 @@ type usersprops = {
   picture?: string | null;
   birthdate?: string | null;
   registration_date?: string | null;
-  role: string;
-  users_id?: string;
 };
 
 class usersRepository {
   async create(u: Omit<usersprops, "" | "id">): Promise<usersprops> {
     const [result] = await databaseClient.query<Result>(
-      "insert into users (firstname, lastname, email, password, tel_num, role, address, zipcode, city, country, picture, birthdate, registration_date, users_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      "insert into users (firstname, lastname, email, password, tel_num, role, address, zipcode, city, country, picture, birthdate, registration_date) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
       [
         u.firstname,
         u.lastname,
@@ -35,9 +34,14 @@ class usersRepository {
         u.zipcode,
         u.city,
         u.country,
-        u.users_id,
+        u.picture,
+        u.birthdate,
+        u.registration_date,
       ],
     );
+
+    console.info("nouveau user enregistré", result);
+
     const [sendRole] = await databaseClient.query<RowDataPacket[]>(
       "SELECT * FROM users WHERE id = LAST_INSERT_ID()",
       [u.role],
@@ -46,24 +50,17 @@ class usersRepository {
     return sendRole[0] as usersprops;
   }
 
-  async readByEmailWithPassword(email: string) {
-    // Execute the SQL SELECT query to retrieve a specific user by its email
-    const [rows] = await databaseClient.query<Rows>(
-      "select * from users where email = ?",
-      [email],
-    );
-
-    // Return the first row of the result, which represents the user
-    return rows[0] as usersprops;
-  }
-
   async find(email: string): Promise<usersprops[]> {
     // Execute the SQL SELECT query to retrieve a specific email
     const [rows] = await databaseClient.query<Rows>(
       "select * from users where email = ?",
       [email],
     );
-
+    console.info("lecture de email dans usersRepo", email);
+    console.info(
+      "Controle BDD si utilisateur non existant renvoi undefined",
+      rows[0],
+    );
     return rows[0] as usersprops[];
   }
 
