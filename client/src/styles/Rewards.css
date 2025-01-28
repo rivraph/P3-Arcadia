@@ -1,3 +1,8 @@
+h1 {
+  margin: 0;
+  text-shadow: 2px 2px 5px black;
+}
+
 .points-card {
   display: flex;
   flex-direction: column;
