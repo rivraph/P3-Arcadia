@@ -1,40 +1,39 @@
--- Table Users
 CREATE TABLE users (
   id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
   firstname VARCHAR(30) NOT NULL,
   lastname VARCHAR(30) NOT NULL,
   email VARCHAR(40) NOT NULL,
-  password VARCHAR(255) NOT NULL,
-  tel_num VARCHAR(15) NOT NULL, -- Numéro de téléphone comme texte
-  address VARCHAR(100) NOT NULL,
-  zipcode VARCHAR(10) NOT NULL, -- Code postal comme texte
-  city VARCHAR(50) NOT NULL,
-  country VARCHAR(40) NOT NULL,
-  picture VARCHAR(200) NOT NULL,
-  birthdate DATE NOT NULL,
+  password varchar(15) NOT NULL,
+  tel_num VARCHAR(15) DEFAULT NULL, 
+  address VARCHAR(100) NULL,
+  zipcode VARCHAR(10) NULL, 
+  city VARCHAR(50) NULL,
+  country VARCHAR(40) NULL,
+  picture VARCHAR(200) NULL,
+  birthdate DATE NULL,
   registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  role VARCHAR(20) NOT NULL
+  role ENUM('user', 'boss') DEFAULT 'user'
 );
 
--- Table Scores
+
 CREATE TABLE scores (
   id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-  users_id INT NOT NULL, -- Correction du nom de la clé étrangère
+  users_id INT NOT NULL,
   game_max_score_id INT NOT NULL,
   game_max_score INT NOT NULL,
   FOREIGN KEY (users_id) REFERENCES users(id)
 );
 
--- Table Games
+
 CREATE TABLE games (
   id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
   game_name VARCHAR(100) NOT NULL
 );
 
--- Table Articles
+
 CREATE TABLE articles (
   id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-  article_name VARCHAR(100) NOT NULL, -- Correction du nom de la colonne
+  article_name VARCHAR(100) NOT NULL,
   description VARCHAR(255) NOT NULL
 );
 
@@ -50,9 +49,9 @@ CREATE TABLE rewards (
 );
 
 -- Inserts dans Users
-INSERT INTO users (id, firstname, lastname, email, password, tel_num, address, zipcode, city, country, picture, birthdate, registration_date, password, role)
+INSERT INTO users (id, firstname, lastname, email, password, tel_num, address, zipcode, city, country, picture, birthdate, registration_date, role)
 VALUES
-  (1, "Raphaël", "Rivière", "raphaelriviere87@gmail.com", "raphael", "0663778677", "13 rue des estivenques", "30660", "Gallargues le Montueux", "France", "../public/assets/images/favicon.png", "1987-10-14", "2025-01-15", "user");
+  (1, "Raphaël", "Rivière", "raphaelriviere87@gmail.com", "raphael974", "0663778677", "13 rue des estivenques", "30660", "Gallargues le Montueux", "France", "../public/assets/images/favicon.png", "1987-10-14", "2025-01-15", "boss");
 
 -- Inserts dans Scores
 INSERT INTO scores (id, users_id, game_max_score_id, game_max_score)

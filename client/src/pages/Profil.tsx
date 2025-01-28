@@ -18,6 +18,32 @@ function Profil() {
     }
   };
 
+  const handleRemove = async (event: React.MouseEvent) => {
+    event.preventDefault();
+
+    const confirm = window.confirm(
+      "Êtes-vous sûr de vouloir supprimer votre compte ?",
+    );
+    if (!confirm) return;
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/users/${localStorage.getItem("userId")}`,
+        {
+          method: "delete",
+        },
+      );
+      if (response.ok) {
+        console.info("User deleted");
+        window.location.href = "/";
+      } else {
+        console.error("Error deleting user:", await response.json());
+      }
+    } catch (error) {
+      console.error("Error deleting user:", error);
+    }
+  };
+
   return (
     <div className="mainprofil">
       <div className="profil">
@@ -118,6 +144,13 @@ function Profil() {
 
           <label htmlFor="role">Role</label>
           <input type="text" id="role" name="rolee" readOnly={!edit} required />
+          <button
+            type="submit"
+            onClick={handleRemove}
+            onKeyDown={handleKeyPress}
+          >
+            Remove account
+          </button>
         </form>
       </div>
       <div className="toggle-button">

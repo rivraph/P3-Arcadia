@@ -1,9 +1,15 @@
 import { Navigate, Outlet } from "react-router-dom";
 
-function Admin() {
-  const isAdmin = localStorage.getItem("isAdmin") === "true";
+const Admin: React.FC = () => {
+  const role = localStorage.getItem("role"); // Récupération du rôle depuis le localStorage
 
-  return isAdmin ? <Outlet /> : <Navigate to="/register" replace />;
-}
+  if (role !== "boss") {
+    // Si l'utilisateur n'a pas le rôle "boss", il est redirigé vers la page d'accueil
+    return <Navigate to="/homepage" replace />;
+  }
+
+  // Sinon, on autorise l'accès aux enfants (routes imbriquées)
+  return <Outlet />;
+};
 
 export default Admin;

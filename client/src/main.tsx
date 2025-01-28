@@ -25,10 +25,20 @@ import HomePage from "./pages/homePage";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Navigate to="homepage" />,
+    element: (
+      <Navigate
+        to={
+          localStorage.getItem("role") === "boss"
+            ? "/admin/profil"
+            : localStorage.getItem("role") === "user"
+              ? "/users/profil"
+              : "/homepage"
+        }
+      />
+    ),
   },
   {
-    path: "/",
+    path: "*",
     element: <App />,
     children: [
       {
@@ -86,35 +96,35 @@ const router = createBrowserRouter([
         element: <Admin />, // Composant administrateur
         children: [
           {
-            path: "adminprofil", // Profil admin
+            path: "profil", // Profil admin
             element: <Profil />,
           },
           {
-            path: "admingamelist", // Liste des jeux pour l'admin
+            path: "gamelist", // Liste des jeux pour l'admin
             element: <GameList />,
           },
           {
-            path: "adminmaingame", // Jeu principal pour l'admin
+            path: "maingame", // Jeu principal pour l'admin
             element: <MainGame />,
           },
           {
-            path: "adminabout", // Page à propos pour l'admin
+            path: "about", // Page à propos pour l'admin
             element: <About />,
           },
           {
-            path: "adminrewards", // Récompenses admin
+            path: "rewards", // Récompenses admin
             element: <Rewards />,
           },
           {
-            path: "adminscoreshistory", // Historique des scores admin
+            path: "scoreshistory", // Historique des scores admin
             element: <ScoresHistory />,
           },
           {
-            path: "adminrewardshistory", // Historique des récompenses admin
+            path: "rewardshistory", // Historique des récompenses admin
             element: <RewardsHistory />,
           },
           {
-            path: "admincontact", // Contact admin
+            path: "contact", // Contact admin
             element: <Contact />,
           },
         ],
