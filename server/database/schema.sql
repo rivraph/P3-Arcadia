@@ -10,7 +10,7 @@ CREATE TABLE users (
   city VARCHAR(50) NULL,
   country VARCHAR(40) NULL,
   picture VARCHAR(200) NULL,
-  birthdate DATE NULL,
+  birthdate VARCHAR(30) NULL,
   registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   role ENUM('user', 'boss') DEFAULT 'user'
 );
@@ -51,7 +51,7 @@ CREATE TABLE rewards (
 -- Inserts dans Users
 INSERT INTO users (id, firstname, lastname, email, password, tel_num, address, zipcode, city, country, picture, birthdate, registration_date, role)
 VALUES
-  (1, "Raphaël", "Rivière", "raphaelriviere87@gmail.com", "raphael974", "0663778677", "13 rue des estivenques", "30660", "Gallargues le Montueux", "France", "../public/assets/images/favicon.png", "1987-10-14", "2025-01-15", "boss");
+  (1, "Raphael", "Riviere", "raphaelriviere87@gmail.com", "raphael974", "0663778677", "13 rue des estivenques", "30660", "Gallargues le Montueux", "France", "../public/assets/images/favicon.png", "1987-10-14", "2025-01-15", "boss");
 
 -- Inserts dans Scores
 INSERT INTO scores (id, users_id, game_max_score_id, game_max_score)

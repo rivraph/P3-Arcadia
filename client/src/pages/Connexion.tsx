@@ -38,11 +38,14 @@ function Connexion() {
 
         // Mise à jour du rôle dans le localStorage
         const role = dataObject.role;
+        const firstname = dataObject.firstname;
+        const id = dataObject.id;
+        localStorage.setItem("id", id);
+        localStorage.setItem("prenom", firstname);
         localStorage.setItem("role", role);
-        console.info(
-          "Rôle enregistré dans localStorage :",
-          localStorage.getItem("role"),
-        );
+        console.info(id);
+        console.info(firstname);
+        console.info(role);
 
         // Redirection basée sur le rôle
         if (localStorage.getItem("role") === "boss") {

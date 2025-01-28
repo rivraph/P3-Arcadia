@@ -8,7 +8,15 @@ type usersprops = {
   email: string;
   password: string;
   tel_num: string;
+  address?: string | null;
+  zipcode?: string | null;
+  city?: string | null;
+  country?: string | null;
+  picture?: string | null;
+  birthdate?: string | null;
+  registration_date?: string | null;
   role: string;
+  users_id?: string;
 };
 
 interface LoginRequestBody {
@@ -17,6 +25,8 @@ interface LoginRequestBody {
 }
 
 interface UserLoginData {
+  id: number;
+  firstname: string;
   email: string;
   password: string;
   role: string;
@@ -54,19 +64,16 @@ const browserForLogin = async (
       return;
     }
 
-    console.info("Utilisateur trouvé :", userslogin);
-
     if (userslogin[0].password !== password) {
       res.status(401).json({ message: "Mot de passe incorrect" });
       return;
     }
 
     res.status(200).json({
-      email: userslogin[0].email,
+      id: userslogin[0].id,
+      firstname: userslogin[0].firstname,
       role: userslogin[0].role,
     });
-
-    console.info("console du users back", userslogin[0]);
   } catch (err) {
     // Pass any errors to the error-handling middleware
     next(err);
@@ -78,7 +85,6 @@ const read: RequestHandler = async (req, res, next) => {
   try {
     // Fetch a specific item based on the provided ID
     const userId = Number(req.params.id);
-    console.info("role id");
     const user = await usersRepository.read(userId);
     if (user == null) {
       res.sendStatus(404);
@@ -97,17 +103,24 @@ const add: RequestHandler = async (req, res, next): Promise<void> => {
     console.info("Données reçues par le serveur :", req.body);
 
     // Extract the user data from the request body
-    const newUser: Omit<usersprops, "id" | "users_id"> = {
+    const newUser: Omit<usersprops, "" | "id"> = {
       firstname: req.body.firstname,
       lastname: req.body.lastname,
       email: req.body.email,
       password: req.body.password,
       tel_num: req.body.tel_num || null,
       role: req.body.role || "user",
+      address: req.body.address || null,
+      zipcode: req.body.zipcode || null,
+      city: req.body.city || null,
+      country: req.body.country || null,
+      picture: req.body.picture || null,
+      birthdate: req.body.birthdate || null,
+      registration_date: new Date().toISOString() || null,
+      users_id: req.body.users_id || undefined,
     };
 
     const bddCheckEmail = await usersRepository.find(newUser.email);
-    console.info("retour de bdd si j'existe déjà", bddCheckEmail);
 
     if (
       !newUser.firstname ||
@@ -121,7 +134,6 @@ const add: RequestHandler = async (req, res, next): Promise<void> => {
     // Create the user
     if (!bddCheckEmail) {
       const insertUser = await usersRepository.create(newUser);
-      console.info("Utilisateur inséré avec ID :", insertUser);
       res.status(201).json(insertUser);
     } else {
       console.info("Utilisateur déjà créé");
@@ -156,4 +168,24 @@ const remove: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { browse, read, add, remove, browserForLogin };
+const update: RequestHandler = async (req, res, next) => {
+  try {
+    // Fetch a specific item based on the provided ID
+    const id = req.body.id;
+    console.info("lecture id", id);
+    const userData = req.body;
+    console.info("console info du userData dans update", userData);
+    const userUpdateData = await usersRepository.edit(Number(id), userData);
+    console.info("données renvoyés au front", userUpdateData);
+    if (userUpdateData == null) {
+      res.sendStatus(404);
+    } else {
+      res.json(userUpdateData);
+    }
+  } catch (err) {
+    // Pass any errors to the error-handling middleware
+    next(err);
+  }
+};
+
+export default { browse, read, add, remove, browserForLogin, update };

@@ -3,26 +3,47 @@ import type { Result, Rows } from "../../../database/client";
 import databaseClient from "../../../database/client";
 
 type usersprops = {
+  id: number;
   firstname: string;
   lastname: string;
   email: string;
   password: string;
-  tel_num: string | null;
+  tel_num: string;
+  address?: string | null;
+  zipcode?: string | null;
+  city?: string | null;
+  country?: string | null;
+  picture?: string | null;
+  birthdate?: string | null;
+  registration_date?: string | null;
   role: string;
+  users_id?: string;
 };
 
 class usersRepository {
-  async create(u: Omit<usersprops, "id" | "">) {
+  async create(u: Omit<usersprops, "" | "id">): Promise<usersprops> {
     const [result] = await databaseClient.query<Result>(
-      "insert into users (firstname, lastname, email, password, tel_num, role) values (?, ?, ?, ?, ?, ?)",
-      [u.firstname, u.lastname, u.email, u.password, u.tel_num, u.role],
+      "insert into users (firstname, lastname, email, password, tel_num, role, address, zipcode, city, country, picture, birthdate, registration_date, users_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      [
+        u.firstname,
+        u.lastname,
+        u.email,
+        u.password,
+        u.tel_num,
+        u.role,
+        u.address,
+        u.zipcode,
+        u.city,
+        u.country,
+        u.users_id,
+      ],
     );
     const [sendRole] = await databaseClient.query<RowDataPacket[]>(
-      "SELECT role from users where role = ?",
+      "SELECT * FROM users WHERE id = LAST_INSERT_ID()",
       [u.role],
     );
 
-    return sendRole[0];
+    return sendRole[0] as usersprops;
   }
 
   async readByEmailWithPassword(email: string) {
@@ -53,7 +74,7 @@ class usersRepository {
 
   async readForLogin(email: string) {
     const [rows] = await databaseClient.query<Rows>(
-      "SELECT email, password, role FROM users WHERE email = ?",
+      "SELECT id, firstname, email, password, role FROM users WHERE email = ?",
       [email], // L'email est passé ici dans la requête SQL
     );
     console.info("rows infos => ", rows);
@@ -66,9 +87,45 @@ class usersRepository {
       [id], // L'ID est passé ici dans la requête SQL
     );
 
-    console.info("user id", rows);
-
     return rows as usersprops[] | undefined;
+  }
+
+  async edit(id: number, userData: Partial<usersprops>) {
+    const query = `
+      UPDATE users SET
+        firstname = ?,
+        lastname = ?,
+        email = ?,
+        password = ?,
+        tel_num = ?,
+        address = ?,
+        zipcode = ?,
+        city = ?,
+        country = ?,
+        picture = ?,
+        birthdate = ?
+      WHERE id = ?`;
+
+    const values = [
+      userData.firstname,
+      userData.lastname,
+      userData.email,
+      userData.password,
+      userData.tel_num,
+      userData.address,
+      userData.zipcode,
+      userData.city,
+      userData.country,
+      userData.picture,
+      userData.birthdate,
+      userData.id, // ID à utiliser dans la clause WHERE
+    ];
+
+    console.info("test arrivé userData dans edit => ", values);
+    const [rows] = await databaseClient.query<Rows>(query, values);
+    console.info("résultat modifié =>", rows);
+
+    return this.read(id);
   }
 
   async delete(id: number) {

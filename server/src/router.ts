@@ -20,6 +20,7 @@ router.post("/api/login", usersActions.browserForLogin);
 router.get("/api/users/:id", usersActions.read);
 router.post("/api/users", usersActions.add);
 router.delete("/api/users/:id", usersActions.remove);
+router.put("/api/users/:id", usersActions.update);
 
 /* ************************************************************************* */
 

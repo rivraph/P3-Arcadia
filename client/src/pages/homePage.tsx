@@ -2,12 +2,9 @@ import { Link } from "react-router-dom";
 import "../styles/homePage.css";
 
 function homePage() {
-  if (
-    localStorage.getItem("role") === "user" ||
-    localStorage.getItem("role") === "boss"
-  ) {
-    localStorage.setItem("role", "");
-  }
+  localStorage.setItem("role", "");
+  localStorage.setItem("prenom", "");
+  localStorage.setItem("id", "");
 
   return (
     <div className="mainhomepage">
