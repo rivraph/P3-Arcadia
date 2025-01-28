@@ -30,12 +30,13 @@
 }
 
 .about-content {
-  background: var(--color1-);
+  background: #a14ed9;
   padding: 20px;
   border-radius: 10px;
   max-width: 800px;
   margin: 20px;
   overflow-y: auto;
+  border: 2px solid black;
 }
 
 .about-content h1,
