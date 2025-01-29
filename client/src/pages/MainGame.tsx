@@ -10,6 +10,7 @@ function MainGame() {
 
   useEffect(() => {
     const gName = localStorage.getItem("gamename");
+    console.info("nom du jeu sélectionné :", gName);
     setGameName(gName);
   }, []);
 
