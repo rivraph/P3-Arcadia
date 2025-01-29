@@ -115,12 +115,12 @@ class usersRepository {
       userData.country,
       userData.picture,
       userData.birthdate,
-      userData.id, // ID à utiliser dans la clause WHERE
+      userData.id,
     ];
 
     console.info("test arrivé userData dans edit => ", values);
     const [rows] = await databaseClient.query<Rows>(query, values);
-    console.info("résultat modifié =>", rows);
+    console.info("résultat modifié renvoyé à userActions =>", rows);
 
     return this.read(id);
   }

@@ -173,20 +173,23 @@ const remove: RequestHandler = async (req, res, next) => {
 
 const update: RequestHandler = async (req, res, next) => {
   try {
-    // Fetch a specific item based on the provided ID
-    const id = req.body.id;
-    console.info("lecture id", id);
     const userData = req.body;
-    console.info("console info du userData dans update", userData);
-    const userUpdateData = await usersRepository.edit(Number(id), userData);
-    console.info("données renvoyés au front", userUpdateData);
+    const id = Number(userData?.id);
+    console.info(
+      "req.body recue dans le back envoyé à usersRepo => ",
+      userData,
+    );
+    console.info("lecture id recue dans le back envoyé à usersRepo => ", id);
+
+    const userUpdateData = await usersRepository.edit(id, userData);
+
     if (userUpdateData == null) {
+      console.info("données renvoyés vers front", userUpdateData);
       res.sendStatus(404);
     } else {
       res.json(userUpdateData);
     }
   } catch (err) {
-    // Pass any errors to the error-handling middleware
     next(err);
   }
 };
