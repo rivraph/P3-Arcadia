@@ -2,7 +2,7 @@ import "../styles/Rewards.css";
 
 function Rewards() {
   return (
-    <>
+    <div className="mainrewards">
       <h1>Rewards</h1>
       <div className="rewards">
         <div className="points-card">
@@ -23,7 +23,7 @@ function Rewards() {
           <button type="button">Buy for 1000 points</button>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
