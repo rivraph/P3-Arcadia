@@ -9,6 +9,7 @@ function Profil() {
     lastname: "",
     email: "",
     password: "",
+    role: "",
     number: "",
     address: "",
     zipcode: "",
@@ -17,19 +18,18 @@ function Profil() {
     birthdate: "",
     registration_date: "",
     tel_num: "",
-    role: "",
   });
 
   const toggleSwitch = () => {
     setEdit(!edit);
   };
-
   //fonction collecte infos de la bdd au chargement de la page pour remplir les champs en dynamique
   useEffect(() => {
+    const numUser = localStorage.getItem("id");
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/users/${userData.id}`,
+          `${import.meta.env.VITE_API_URL}/api/users/${numUser}`,
           {
             method: "get",
           },
@@ -55,7 +55,7 @@ function Profil() {
     };
 
     fetchData();
-  }, [userData]);
+  }, []);
 
   //fonction pour mettre à jour les informations à l'aide du bouton modifier
   const handleEditClick = async () => {

@@ -7,7 +7,8 @@ type usersprops = {
   lastname: string;
   email: string;
   password: string;
-  tel_num: string;
+  role: string;
+  tel_num?: string | null;
   address?: string | null;
   zipcode?: string | null;
   city?: string | null;
@@ -15,8 +16,6 @@ type usersprops = {
   picture?: string | null;
   birthdate?: string | null;
   registration_date?: string | null;
-  role: string;
-  users_id?: string;
 };
 
 interface LoginRequestBody {
@@ -100,7 +99,7 @@ const read: RequestHandler = async (req, res, next) => {
 // The A of BREAD - Add (Create) operation
 const add: RequestHandler = async (req, res, next): Promise<void> => {
   try {
-    console.info("Données reçues par le serveur :", req.body);
+    console.info("Données reçues par le front :", req.body);
 
     // Extract the user data from the request body
     const newUser: Omit<usersprops, "" | "id"> = {
@@ -117,11 +116,11 @@ const add: RequestHandler = async (req, res, next): Promise<void> => {
       picture: req.body.picture || null,
       birthdate: req.body.birthdate || null,
       registration_date: new Date().toISOString() || null,
-      users_id: req.body.users_id || undefined,
     };
 
     const bddCheckEmail = await usersRepository.find(newUser.email);
-
+    console.info("controle info bddcheck", bddCheckEmail);
+    // 4 données obligatoire
     if (
       !newUser.firstname ||
       !newUser.lastname ||
@@ -134,6 +133,10 @@ const add: RequestHandler = async (req, res, next): Promise<void> => {
     // Create the user
     if (!bddCheckEmail) {
       const insertUser = await usersRepository.create(newUser);
+      console.info(
+        "Utilisateur créé avec succès et envoi au front",
+        insertUser,
+      );
       res.status(201).json(insertUser);
     } else {
       console.info("Utilisateur déjà créé");

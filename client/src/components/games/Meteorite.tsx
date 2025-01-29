@@ -3,8 +3,8 @@ import "./Meteorite.css";
 import { useEffect } from "react";
 
 const FallingObjectsGame: React.FC = () => {
-  const canvasWidth = 1000;
-  const canvasHeight = 500;
+  const canvasWidth = 1280;
+  const canvasHeight = 720;
   const gameInterval = 1000 / 60;
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -161,10 +161,21 @@ const FallingObjectsGame: React.FC = () => {
   };
 
   return (
-    <div onKeyDown={handleKeyDown} style={{ outline: "none" }}>
-      <h1>Falling Object</h1>
+    <div
+      className="meteoriteclass"
+      onKeyDown={handleKeyDown}
+      style={{ outline: "none" }}
+    >
       <p>Score: {score}</p>
       {gameOver && <p style={{ color: "red" }}>Good Luck</p>}
+      <canvas
+        ref={canvasRef}
+        width={canvasWidth}
+        height={canvasHeight}
+        style={{ border: "1px solid black", background: "black" }}
+      >
+        {" "}
+      </canvas>
       {!gameStarted ? (
         <button type="button" onClick={startGame}>
           Start
@@ -174,14 +185,6 @@ const FallingObjectsGame: React.FC = () => {
           Restart
         </button>
       )}
-      <canvas
-        ref={canvasRef}
-        width={canvasWidth}
-        height={canvasHeight}
-        style={{ border: "1px solid black", background: "black" }}
-      >
-        {" "}
-      </canvas>
     </div>
   );
 };
