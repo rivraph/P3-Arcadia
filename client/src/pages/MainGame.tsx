@@ -1,16 +1,19 @@
 import { useNavigate } from "react-router-dom";
 import "../styles/MainGame.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Meteorite from "../components/games/Meteorite";
 import Walking from "../components/games/WalkingHell";
 
 function MainGame() {
   const navigate = useNavigate();
   const [gameName, setGameName] = useState<string | undefined | null>(null);
+
+  useEffect(() => {
+    const gName = localStorage.getItem("gamename");
+    setGameName(gName);
+  }, []);
+
   const gameNumber = localStorage.getItem("gamenumber");
-  const gName = localStorage.getItem("gamename");
-  console.info(gName);
-  setGameName(gName);
   console.info("id de jeu sélectionné :", gameNumber);
 
   const handleclick = () => {
