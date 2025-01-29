@@ -1,0 +1,21 @@
+.mainfooter {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  height: 6vh;
+  gap: 4em;
+  align-items: center;
+  background: linear-gradient(
+    to right,
+    #2797a6 1%,
+    #db2fcd 20%,
+    #db2fcd 75%,
+    #a53344 90%
+  );
+  h1,
+  h2 {
+    font-size: 20px;
+    margin: 0;
+    text-shadow: 2px 2px 5px black;
+  }
+}
