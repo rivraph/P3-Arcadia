@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import "./Meteorite.css";
 import { useEffect } from "react";
 
-const FallingObjectsGame: React.FC = () => {
+const FallingObjectsGame = () => {
   const canvasWidth = 1280;
   const canvasHeight = 720;
   const gameInterval = 1000 / 60;
