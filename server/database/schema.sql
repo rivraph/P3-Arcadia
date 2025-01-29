@@ -1,6 +1,7 @@
 CREATE TABLE games (
   id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-  game_name VARCHAR(100) NOT NULL
+  game_name VARCHAR(100) NOT NULL,
+  source VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE users (
@@ -62,10 +63,10 @@ VALUES
   (3, "bon n°3", "Echange de 3000 points contre 4 parties chez Arcadia Palace");
 
 -- Inserts dans Games
-INSERT INTO games (id, game_name)
+INSERT INTO games (id, game_name, source)
 VALUES
-  (1, "Walking Hell"),
-  (2, "Meteorite");
+  (1, "Walking Hell", "../client/src/components/games/WalkingHell.tsx"),
+  (2, "Meteorite", "../client/src/components/games/Meteorite.tsx");
 
 -- Inserts dans Rewards
 INSERT INTO rewards (id, article_id, user_id, exchange_date, transaction_number)

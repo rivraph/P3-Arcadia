@@ -3,8 +3,8 @@ import { useEffect, useRef, useState } from "react";
 import "./WalkingHell.css";
 
 const WalkingDead: React.FC = () => {
-  const canvasWidth = 1000;
-  const canvasHeight = 400;
+  const canvasWidth = 1280;
+  const canvasHeight = 720;
   const gameInterval = 1000 / 60;
   const jumpHeight = 200;
   const jumpDuration = 800;
@@ -251,12 +251,20 @@ const WalkingDead: React.FC = () => {
 
   return (
     <div
+      className="walkingclass"
       onKeyDown={handleKeyDown}
       onKeyUp={handleKeyUp}
       style={{ outline: "none" }}
     >
-      <h1>Walking Dead</h1>
-      <p>Score: {score}</p>
+      <p>Game Score: {score}</p>
+      <canvas
+        ref={canvasRef}
+        width={canvasWidth}
+        height={canvasHeight}
+        style={{ border: "1px solid black", background: "#eee" }}
+      >
+        {" "}
+      </canvas>
       {gameOver && (
         <p style={{ color: "red" }}>Game Over! Score final : {score}</p>
       )}
@@ -269,14 +277,6 @@ const WalkingDead: React.FC = () => {
           Restart
         </button>
       )}
-      <canvas
-        ref={canvasRef}
-        width={canvasWidth}
-        height={canvasHeight}
-        style={{ border: "1px solid black", background: "#eee" }}
-      >
-        {" "}
-      </canvas>
     </div>
   );
 };
