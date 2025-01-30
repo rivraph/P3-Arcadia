@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import "../styles/MainGame.css";
 import { useEffect, useState } from "react";
 import Meteorite from "../components/games/Meteorite";
+import ShootAlien from "../components/games/ShootAlien";
 import Walking from "../components/games/WalkingHell";
 
 function MainGame() {
@@ -59,6 +60,8 @@ function MainGame() {
             <Walking />
           ) : gameName === "Meteorite" ? (
             <Meteorite />
+          ) : gameName === "Shoot Alien" ? (
+            <ShootAlien />
           ) : (
             <p>Loading error</p>
           )}

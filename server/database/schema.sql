@@ -66,7 +66,8 @@ VALUES
 INSERT INTO games (id, game_name, source)
 VALUES
   (1, "Walking Hell", "../client/src/components/games/WalkingHell.tsx"),
-  (2, "Meteorite", "../client/src/components/games/Meteorite.tsx");
+  (2, "Meteorite", "../client/src/components/games/Meteorite.tsx"),
+  (3, "Shoot Alien", "../client/src/components/games/ShootAlien.tsx");
 
 -- Inserts dans Rewards
 INSERT INTO rewards (id, article_id, user_id, exchange_date, transaction_number)
