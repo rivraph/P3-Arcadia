@@ -12,6 +12,7 @@ const GameList = () => {
   const navigate = useNavigate();
   const [gameName, setGameName] = useState("");
   const [gameId, setGameId] = useState("");
+
   localStorage.setItem("gamenumber", "");
   localStorage.setItem("gamename", "");
 
@@ -20,39 +21,37 @@ const GameList = () => {
   ) => {
     event.preventDefault();
 
-    const gameCard =
-      (event.target as HTMLElement).closest(".gamelist-main") || null;
+    const gameCard = event.target as HTMLElement;
 
     console.info(gameCard);
 
-    const gameId = gameCard?.querySelector("img")?.alt || "";
-    const gameName = gameCard?.querySelector("h2")?.innerText || "";
-    setGameName(gameName);
+    const gameId =
+      gameCard.closest("div.game-list")?.querySelector("img")?.alt || "";
+    const name =
+      gameCard.closest("div.game-list")?.querySelector("h2")?.innerText || "";
+    setGameName(name);
     setGameId(gameId);
     console.info(gameId);
-    console.info(gameName);
+    console.info(name);
+    localStorage.setItem("gamenumber", gameId);
+    localStorage.setItem("gamename", name);
 
     if (localStorage.getItem("role") === "user") {
-      localStorage.setItem("gamenumber", gameId);
-      localStorage.setItem("gamename", gameName);
       navigate("/users/maingame");
     }
     if (localStorage.getItem("role") === "boss") {
-      localStorage.setItem("gamenumber", gameId);
-      localStorage.setItem("gamename", gameName);
       navigate("/admin/maingame");
     }
   };
 
   const handleKeyUp = () => {
+    localStorage.setItem("gamenumber", gameId);
+    localStorage.setItem("gamename", gameName);
+
     if (localStorage.getItem("role") === "user") {
-      localStorage.setItem("gamenumber", gameId);
-      localStorage.setItem("gamename", gameName);
       navigate("/users/maingame");
     }
     if (localStorage.getItem("role") === "boss") {
-      localStorage.setItem("gamenumber", gameId);
-      localStorage.setItem("gamename", gameName);
       navigate("/admin/maingame");
     }
   };

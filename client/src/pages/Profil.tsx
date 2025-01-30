@@ -1,9 +1,25 @@
 import { useEffect, useState } from "react";
 import "../styles/Profil.css";
 
+type UserData = {
+  id: string;
+  firstname: string;
+  lastname: string;
+  email: string;
+  password: string;
+  role: string;
+  number: string;
+  address: string;
+  zipcode: string;
+  city: string;
+  country: string;
+  birthdate: string;
+  registration_date: string;
+  tel_num: string;
+};
 function Profil() {
   const [edit, setEdit] = useState(false);
-  const [userData, setUserData] = useState({
+  const [userData, setUserData] = useState<UserData>({
     id: "",
     firstname: "",
     lastname: "",
@@ -19,17 +35,19 @@ function Profil() {
     registration_date: "",
     tel_num: "",
   });
+  const numUser = Number(localStorage.getItem("id"));
 
   const toggleSwitch = () => {
     setEdit(!edit);
   };
   //fonction collecte infos de la bdd au chargement de la page pour remplir les champs en dynamique
   useEffect(() => {
-    const numUser = localStorage.getItem("id");
+    console.info("num user lus au chargement de la page => ", numUser);
+
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/users/${numUser}`,
+          `${import.meta.env.VITE_API_URL}/api/users`,
           {
             method: "get",
           },
@@ -39,7 +57,10 @@ function Profil() {
           const allUserData = await response.json();
           const userData = allUserData[0];
           setUserData(userData); // Enregistre les données dans le state
-          console.info("User data lus en front", userData);
+          console.info(
+            "User data lus en front au chargement de la page",
+            userData,
+          );
         } else {
           console.error(
             "Erreur lors de la récupération des données utilisateur:",
@@ -53,16 +74,17 @@ function Profil() {
         );
       }
     };
-
     fetchData();
-  }, []);
+  }, [numUser]);
+
+  console.info("lecture userData après chargement de la page => ", userData);
 
   //fonction pour mettre à jour les informations à l'aide du bouton modifier
   const handleEditClick = async () => {
     if (edit === true) {
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/users/${userData.id}}`,
+          `${import.meta.env.VITE_API_URL}/api/users/${numUser}`,
           {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
@@ -70,8 +92,14 @@ function Profil() {
           },
         );
 
+        console.info("données user au clic envoyé en PUT =>", userData);
+
         if (response.ok) {
-          const userUpdateData = await response.json();
+          const [userUpdateData] = await response.json();
+          console.info(
+            "donnée modifiées recues et enregistrés du back pour affichage => ",
+            userUpdateData,
+          );
           setUserData(userUpdateData);
           toggleSwitch();
         } else {
@@ -123,9 +151,10 @@ function Profil() {
     const { name, value } = e.target;
     setUserData((prevData) => ({
       ...prevData,
-      [name]: value, // Mets à jour uniquement le champ modifié
+      [name]: value,
     }));
   };
+
   return (
     <div className="mainprofil">
       <div className="profil">

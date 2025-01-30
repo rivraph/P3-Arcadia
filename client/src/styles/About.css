@@ -1,6 +1,6 @@
 .about-container {
   width: 100vw;
-  height: 100vh;
+  height: 70vh;
   overflow-y: auto; /* Permettre le défilement vertical */
   display: flex;
   flex-direction: column;
