@@ -33,6 +33,8 @@ CREATE TABLE scores (
 CREATE TABLE articles (
   id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
   article_name VARCHAR(100) NOT NULL,
+  debpoints INT NOT NULL,
+  parts INT NOT NULL,
   description VARCHAR(255) NOT NULL
 );
 
@@ -56,17 +58,21 @@ VALUES
 
 
 -- Inserts dans Articles
-INSERT INTO articles (id, article_name, description)
+INSERT INTO articles (id, article_name, debpoints, parts, description)
 VALUES
-  (1, "bon n°1", "Echange de 500 points contre 1 partie chez Arcadia Palace"),
-  (2, "bon n°2", "Echange de 1200 points contre 2 parties chez Arcadia Palace"),
-  (3, "bon n°3", "Echange de 3000 points contre 4 parties chez Arcadia Palace");
+  (1, "Buy for 10k points", 10000, 1, "Exchange for 1 part in Arcadia PlayStore"),
+  (2, "Buy for 50k points", 50000, 5, "Exchange for 5 parts in Arcadia PlayStore"),
+  (3, "Buy for 100k points", 100000, 10, "Exchange for 10 parts in Arcadia PlayStore"),
+  (4, "Buy for 200k points", 200000, 20, "Exchange for 20 parts in Arcadia PlayStore"),
+  (5, "Buy for 500k points", 500000, 50, "Exchange for 50 parts in Arcadia PlayStore"),
+  (6, "Buy for 1M points", 1000000, 120, "Exchange for 120 parts in Arcadia PlayStore");
 
 -- Inserts dans Games
 INSERT INTO games (id, game_name, source)
 VALUES
   (1, "Walking Hell", "../client/src/components/games/WalkingHell.tsx"),
-  (2, "Meteorite", "../client/src/components/games/Meteorite.tsx");
+  (2, "Meteorite", "../client/src/components/games/Meteorite.tsx"),
+  (3, "Shoot Alien", "../client/src/components/games/ShootAlien.tsx");
 
 -- Inserts dans Rewards
 INSERT INTO rewards (id, article_id, user_id, exchange_date, transaction_number)

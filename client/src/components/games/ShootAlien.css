@@ -1,0 +1,107 @@
+body,
+html {
+  height: 100%;
+  margin: 0;
+}
+
+.game-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -110%);
+  width: 77vw;
+  height: 57.5vh;
+  overflow: hidden;
+  border: 1px solid #000;
+  box-shadow: 0px 0px 10px 15px #a14ed9c7;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.target {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+  z-index: 1;
+  animation: circular-move 4s linear infinite;
+}
+
+@keyframes circular-move {
+  0% {
+    transform: rotate(0deg) translateX(20px) rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg) translateX(20px) rotate(-360deg);
+  }
+}
+
+.timer {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  z-index: 2;
+  color: #a14ed9c7;
+}
+
+.restart-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0px 0px 10px 15px #a14ed9c7;
+}
+
+.score {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  z-index: 2;
+  color: #a14ed9c7;
+}
+
+.plus-one {
+  position: absolute;
+  font-size: 20px;
+  font-weight: bold;
+  color: rgb(30, 255, 0);
+  opacity: 1;
+  pointer-events: none;
+  z-index: 10;
+  animation: moveUp 1s ease-out, fadeOut 1s forwards;
+}
+
+@keyframes moveUp {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(-40px);
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
