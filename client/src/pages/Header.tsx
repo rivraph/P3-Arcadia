@@ -1,6 +1,7 @@
 import "../styles/Header.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import Connexion from "./Connexion";
+import Basket from "./basket";
 
 interface headerProps {
   isMenuOpen: boolean;
@@ -89,6 +90,9 @@ function Header({ isMenuOpen, setIsMenuOpen, menuRef }: headerProps) {
     }
   };
 
+  const idNumber = localStorage.getItem("id");
+  const isConnect = Boolean(idNumber);
+
   return (
     <div className="header" ref={menuRef}>
       <div className="menucontener">
@@ -160,7 +164,10 @@ function Header({ isMenuOpen, setIsMenuOpen, menuRef }: headerProps) {
         </ul>
       </div>
       <img src="/assets/logo.png" alt="logo du site" />
-      <div className="headerconnexion">{isHomePage && <Connexion />}</div>
+      <div className="headerconnexion">
+        {isHomePage && <Connexion />}
+        {!isHomePage && isConnect && <Basket />}
+      </div>
     </div>
   );
 }
