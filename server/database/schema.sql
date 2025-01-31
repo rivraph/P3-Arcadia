@@ -24,6 +24,7 @@ CREATE TABLE users (
 CREATE TABLE scores (
   id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
   users_id INT NOT NULL,
+  user_points INT NOT NULL,
   game_max_score_id INT DEFAULT NULL,
   game_max_score INT DEFAULT NULL,
   FOREIGN KEY (users_id) REFERENCES users(id),
@@ -60,12 +61,12 @@ VALUES
 -- Inserts dans Articles
 INSERT INTO articles (id, article_name, debpoints, parts, description)
 VALUES
-  (1, "Buy for 10k points", 10000, 1, "Exchange for 1 part in Arcadia PlayStore"),
-  (2, "Buy for 50k points", 50000, 5, "Exchange for 5 parts in Arcadia PlayStore"),
-  (3, "Buy for 100k points", 100000, 10, "Exchange for 10 parts in Arcadia PlayStore"),
-  (4, "Buy for 200k points", 200000, 20, "Exchange for 20 parts in Arcadia PlayStore"),
-  (5, "Buy for 500k points", 500000, 50, "Exchange for 50 parts in Arcadia PlayStore"),
-  (6, "Buy for 1M points", 1000000, 120, "Exchange for 120 parts in Arcadia PlayStore");
+  (1, 'Buy for 10k points', 10000, 1, 'Exchange for 1 part in Arcadia PlayStore'),
+  (2, 'Buy for 50k points', 50000, 5, 'Exchange for 5 parts in Arcadia PlayStore'),
+  (3, 'Buy for 100k points', 100000, 10, 'Exchange for 10 parts in Arcadia PlayStore'),
+  (4, 'Buy for 200k points', 200000, 20, 'Exchange for 20 parts in Arcadia PlayStore'),
+  (5, 'Buy for 500k points', 500000, 50, 'Exchange for 50 parts in Arcadia PlayStore'),
+  (6, 'Buy for 1M points', 1000000, 120, 'Exchange for 120 parts in Arcadia PlayStore');
 
 -- Inserts dans Games
 INSERT INTO games (id, game_name, source)
@@ -78,3 +79,8 @@ VALUES
 INSERT INTO rewards (id, article_id, user_id, exchange_date, transaction_number)
 VALUES
   (1, 1, 1, "2025-01-15", "202501150001");
+
+  -- Inserts dans Scores
+INSERT INTO scores (id, users_id, user_points, game_max_score_id, game_max_score)
+VALUES
+  (1, 1, 10000, NULL, 0); 
