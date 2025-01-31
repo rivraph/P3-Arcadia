@@ -1,9 +1,12 @@
 .mainrewards {
-  width: 100vw;
+  width: 90vw;
   height: 70vh;
+  overflow-y: scroll;
+  scrollbar-color: var(--color1-) white;
+  scrollbar-width: thin;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  gap: 3em;
 }
 
 .mainrewards h1 {
@@ -13,32 +16,56 @@
   text-align: center;
 }
 
+.rewards {
+  display: flex;
+  flex: 1 1 calc(33.33% - 16px);
+  position: relative;
+  left: 10vw;
+  width: 10vw;
+  max-height: 60%;
+  max-width: calc(27% - 16px);
+  align-items: center;
+}
+
+.number {
+  position: relative;
+  bottom: 195px;
+  right: 50px;
+  color: var(--color1-);
+  font-size: 60px;
+  text-shadow: black 2px 2px 0px;
+}
+
 .points-card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-shadow: 0px 0px 10px 15px #a14ed9c7;
   width: 250px;
   height: 350px;
-  padding: 2rem;
+  padding: 1rem;
 }
 
 .points-card img {
   margin-bottom: 1rem;
-  box-shadow: 0px 0px 10px 15px #a14ed9c7;
-
-  height: 250px;
+  box-shadow: 0px 0px 10px 15px var(--color1-);
+  width: 250px;
+  height: 350px;
 }
 
 .points-card button {
-  box-shadow: 0px 0px 10px 15px #a14ed9c7;
+  box-shadow: 0px 0px 10px 15px var(--color1-);
   margin-top: auto;
+  position: relative;
+  width: 10vw;
+  font-size: 2vh;
+  bottom: 450px;
+  text-shadow: var(--color1-) 0px 0px 3px;
 }
 
-.rewards {
-  display: flex;
-  gap: 200px;
-  margin-top: 20px;
+.mainrewards p {
+  text-align: center;
+  position: relative;
+  bottom: 230px;
+  background-color: var(--color1-);
+  text-shadow: black 0px 0px 3px;
 }

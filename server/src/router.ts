@@ -22,4 +22,12 @@ router.put("/api/users/:id", usersActions.update);
 
 /* ************************************************************************* */
 
+/* ************************************************************************ */
+// Define articles-related routes
+import articleAction from "./modules/articles/articleActions";
+
+router.get("/api/articles", articleAction.browse);
+
+/* ************************************************************************* */
+
 export default router;
