@@ -21,16 +21,13 @@ const update: RequestHandler = async (req, res, next) => {
   try {
     const userData = req.body;
     const id = Number(userData?.id);
-    console.info(
-      "req.body recue dans le back envoyé à usersRepo => ",
-      userData,
-    );
-    console.info("lecture id recue dans le back envoyé à usersRepo => ", id);
+    console.info("données recues du front envoyé à scoresRepo => ", userData);
+    console.info("lecture id recue du front envoyé à scoresRepo => ", id);
 
-    const userUpdateData = await scoresRepository.edit(id);
+    const userUpdateData = await scoresRepository.edit(id, userData);
 
     if (userUpdateData == null) {
-      console.info("données renvoyés vers front", userUpdateData);
+      console.info("données renvoyées vers front", userUpdateData);
       res.sendStatus(404);
     } else {
       res.json(userUpdateData);

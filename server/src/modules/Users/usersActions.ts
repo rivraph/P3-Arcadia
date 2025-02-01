@@ -1,4 +1,3 @@
-import { DatabaseModule } from "@faker-js/faker/.";
 import type { NextFunction, Request, RequestHandler, Response } from "express";
 import usersRepository from "./usersRepository";
 
