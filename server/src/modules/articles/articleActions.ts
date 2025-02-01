@@ -8,10 +8,6 @@ const browse: RequestHandler = async (req, res, next) => {
   try {
     // Fetch all items
     const articleData = await articleRepository.readAll();
-    console.info(
-      "reception des articles après articleRepo pour envoi vers Front",
-      articleData,
-    );
     // Respond with the items in JSON format
     res.json(articleData);
   } catch (err) {

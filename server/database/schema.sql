@@ -24,7 +24,7 @@ CREATE TABLE users (
 CREATE TABLE scores (
   id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
   users_id INT NOT NULL,
-  user_points INT NOT NULL,
+  user_points INT NULL,
   game_max_score_id INT DEFAULT NULL,
   game_max_score INT DEFAULT NULL,
   FOREIGN KEY (users_id) REFERENCES users(id),
@@ -83,4 +83,4 @@ VALUES
   -- Inserts dans Scores
 INSERT INTO scores (id, users_id, user_points, game_max_score_id, game_max_score)
 VALUES
-  (1, 1, 10000, NULL, 0); 
+  (1, 1, 100000, NULL, 0); 
