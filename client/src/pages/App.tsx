@@ -1,6 +1,7 @@
 import "../styles/App.css";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Outlet } from "react-router-dom";
+import { ContextProvider } from "../components/context/ArcadiaContext";
 import Footer from "./Footer";
 import Header from "./Header";
 
@@ -29,13 +30,15 @@ function App() {
   }, [handleClickOutside]);
   return (
     <>
-      <Header
-        isMenuOpen={isMenuOpen}
-        setIsMenuOpen={setIsMenuOpen}
-        menuRef={menuRef}
-      />
-      <Outlet />
-      <Footer />
+      <ContextProvider>
+        <Header
+          isMenuOpen={isMenuOpen}
+          setIsMenuOpen={setIsMenuOpen}
+          menuRef={menuRef}
+        />
+        <Outlet />
+        <Footer />
+      </ContextProvider>
     </>
   );
 }
