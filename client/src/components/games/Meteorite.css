@@ -2,7 +2,10 @@
   display: block;
   margin: 20px auto;
   width: 78vw;
-  height: 56vh;
+  height: 57vh;
+  position: relative;
+  left: 39vw;
+  top: 1vh;
 }
 
 .meteoriteclass button {
@@ -20,7 +23,7 @@
   display: inline-block;
   font-size: 16px;
   position: relative;
-  left: 35vw;
+  left: 75vw;
   top: -1vh;
   margin: 4px 2px;
   cursor: pointer;
@@ -38,7 +41,7 @@
   position: relative;
   z-index: 20;
   top: -4vh;
-  left: 60vw;
+  left: 105vw;
   font-size: 18px;
   text-shadow: 0px 0px 5px #f2c53d;
   font-size: 200%;
