@@ -3,50 +3,32 @@
   height: 70vh;
   overflow-y: auto; /* Permettre le défilement vertical */
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-items: center;
-  background-image: url("/assets/images/salle_Arcadia_2.jpg");
-  background-size: cover;
-  background-position: center;
-  color: #fff;
-  padding: 20px;
-  box-sizing: border-box;
 }
 
-.full-page-image {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  display: none;
-}
-
-.welcome-image {
-  width: 100%;
-  height: auto;
-  max-width: 600px;
-  margin-bottom: 20px;
-  border-radius: 10px;
-}
-
-.about-content {
+.about-content div {
   background: #a14ed9;
   padding: 20px;
   border-radius: 10px;
-  max-width: 800px;
-  margin: 20px;
-  overflow-y: auto;
+  max-width: 80vw;
+  max-height: 100%;
+  margin: 10px;
   border: 2px solid black;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 .about-content h1,
 .about-content h2,
 .about-content p,
 .about-content ul {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  text-align: center;
 }
 
-.about-content ul {
-  list-style-type: disc;
-  padding-left: 20px;
+.about-content img {
+  width: 30vw;
+  height: auto;
 }
