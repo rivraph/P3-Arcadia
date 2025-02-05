@@ -1,10 +1,9 @@
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
-import { useContextProvider } from "../context/ArcadiaContext"; // Import du contexte
+import { useContextProvider } from "../context/ArcadiaContext";
 import "./ShootAlien.css";
 import targetImage from "../../../public/assets/alien.png";
 
-// Composant cible
 interface TargetProps {
   x: number;
   y: number;
@@ -29,17 +28,15 @@ const Target: React.FC<TargetProps> = ({ x, y, onClick }) => {
         position: "absolute",
         top: `${y}px`,
         left: `${x}px`,
-        width: "50px", // Taille de la cible
-        height: "50px", // Taille de la cible
+        width: "50px",
+        height: "50px",
         cursor: "pointer",
       }}
     />
   );
 };
 
-// Composant principal du jeu
 const ShootAlien: React.FC = () => {
-  // Récupération du score depuis le contexte
   const { userScores, setUserScores } = useContextProvider();
 
   const [targetPos, setTargetPos] = useState<{ x: number; y: number }>({
@@ -66,10 +63,9 @@ const ShootAlien: React.FC = () => {
     setGameOver(true);
   }, [timeLeft]);
 
-  // Fonction appelée quand le joueur clique sur la cible
   const handleTargetClick = (e: React.MouseEvent | React.KeyboardEvent) => {
     if (!gameOver) {
-      setUserScores(userScores + 1); // Mise à jour du score dans le contexte
+      setUserScores(userScores + 1);
 
       setTargetPos({
         x: Math.random() * (800 - 50),
@@ -91,9 +87,8 @@ const ShootAlien: React.FC = () => {
     }
   };
 
-  // Fonction pour redémarrer le jeu
   const handleRestart = () => {
-    setUserScores(0); // Réinitialisation du score dans le contexte
+    setUserScores(0);
     setTargetPos({
       x: Math.random() * (800 - 50),
       y: Math.random() * (600 - 50),
@@ -135,7 +130,6 @@ const ShootAlien: React.FC = () => {
         </div>
       )}
 
-      {/* Affichage du score depuis le contexte */}
       <div className="score">Score: {userScores}</div>
     </div>
   );

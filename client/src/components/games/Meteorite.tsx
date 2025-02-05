@@ -1,6 +1,6 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useContextProvider } from "../context/ArcadiaContext"; // Import du contexte
 import "./Meteorite.css";
-import { useEffect } from "react";
 
 const FallingObjectsGame = () => {
   const canvasWidth = 1280;
@@ -13,17 +13,19 @@ const FallingObjectsGame = () => {
   const [fallingObjects, setFallingObjects] = useState<
     { x: number; y: number }[]
   >([]);
-  const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
   const [currentSpeed, setCurrentSpeed] = useState(4);
+
+  // Utilisation du contexte Arcadia
+  const { userScores, setUserScores } = useContextProvider();
 
   const startGame = () => {
     setGameStarted(true);
   };
 
   const restartGame = () => {
-    setScore(0);
+    setUserScores(0); // Réinitialiser le score via le contexte Arcadia
     setFallingObjects([]);
     setGameOver(false);
     setCurrentSpeed(4);
@@ -115,7 +117,7 @@ const FallingObjectsGame = () => {
           .map((obj) => ({ x: obj.x, y: obj.y + currentSpeed }))
           .filter((obj) => {
             if (checkCollision(obj.x, obj.y)) {
-              setScore((prevScore) => {
+              setUserScores((prevScore) => {
                 const newScore = prevScore + 1;
                 if (newScore % 50 === 0) {
                   setCurrentSpeed((prevSpeed) => prevSpeed + 1);
@@ -150,7 +152,14 @@ const FallingObjectsGame = () => {
       cancelAnimationFrame(animationFrameId);
       clearInterval(intervalId);
     };
-  }, [basketX, fallingObjects, gameOver, currentSpeed, gameStarted]);
+  }, [
+    basketX,
+    fallingObjects,
+    gameOver,
+    currentSpeed,
+    gameStarted,
+    setUserScores,
+  ]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "ArrowLeft") {
@@ -166,7 +175,8 @@ const FallingObjectsGame = () => {
       onKeyDown={handleKeyDown}
       style={{ outline: "none" }}
     >
-      <p>Score: {score}</p>
+      <p>Score: {userScores}</p>{" "}
+      {/* Affichage du score depuis le contexte Arcadia */}
       {gameOver && <p style={{ color: "red" }}>Good Luck</p>}
       <canvas
         ref={canvasRef}
