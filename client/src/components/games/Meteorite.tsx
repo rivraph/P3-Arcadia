@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useContextProvider } from "../context/ArcadiaContext"; // Import du contexte
+import { useContextProvider } from "../context/ArcadiaContext";
 import "./Meteorite.css";
 
 const FallingObjectsGame = () => {
@@ -17,7 +17,6 @@ const FallingObjectsGame = () => {
   const [gameStarted, setGameStarted] = useState(false);
   const [currentSpeed, setCurrentSpeed] = useState(4);
 
-  // Utilisation du contexte Arcadia
   const { userScores, setUserScores } = useContextProvider();
 
   const startGame = () => {
@@ -25,7 +24,7 @@ const FallingObjectsGame = () => {
   };
 
   const restartGame = () => {
-    setUserScores(0); // Réinitialiser le score via le contexte Arcadia
+    setUserScores(0);
     setFallingObjects([]);
     setGameOver(false);
     setCurrentSpeed(4);
@@ -176,7 +175,6 @@ const FallingObjectsGame = () => {
       style={{ outline: "none" }}
     >
       <p>Score: {userScores}</p>{" "}
-      {/* Affichage du score depuis le contexte Arcadia */}
       {gameOver && <p style={{ color: "red" }}>Good Luck</p>}
       <canvas
         ref={canvasRef}
