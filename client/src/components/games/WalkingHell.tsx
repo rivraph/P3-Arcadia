@@ -1,5 +1,5 @@
-import type React from "react";
 import { useEffect, useRef, useState } from "react";
+import { useContextProvider } from "../context/ArcadiaContext";
 import "./WalkingHell.css";
 
 const WalkingDead: React.FC = () => {
@@ -8,6 +8,8 @@ const WalkingDead: React.FC = () => {
   const gameInterval = 1000 / 60;
   const jumpHeight = 200;
   const jumpDuration = 800;
+
+  const { userScores, setUserScores } = useContextProvider();
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const gameLoopRef = useRef<(() => void) | null>(null);
@@ -18,7 +20,6 @@ const WalkingDead: React.FC = () => {
   const [obstacles, setObstacles] = useState<
     { x: number; y: number; type: string; wasScored: boolean }[]
   >([]);
-  const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
   const [currentSpeed, setCurrentSpeed] = useState(2);
@@ -64,7 +65,6 @@ const WalkingDead: React.FC = () => {
   };
 
   const restartGame = () => {
-    setScore(0);
     setObstacles([]);
     setGameOver(false);
     setCharacterY(canvasHeight - 50);
@@ -184,13 +184,11 @@ const WalkingDead: React.FC = () => {
       drawCharacter(ctx);
       gameLoopRef.current = gameLoop;
 
-      // Mettre à jour les obstacles
       setObstacles((prev) =>
         prev
           .map((obj) => {
             const updatedObj = { ...obj, x: obj.x - currentSpeed };
 
-            // Vérifier les collisions avec le joueur
             if (
               updatedObj.x < 70 &&
               updatedObj.x > 50 &&
@@ -198,11 +196,11 @@ const WalkingDead: React.FC = () => {
             ) {
               if (!updatedObj.wasScored) {
                 if (updatedObj.type === "heart") {
-                  setScore((prevScore) => prevScore + 4);
+                  setUserScores((prevScore) => prevScore + 4);
                 } else if (updatedObj.type === "bomb") {
                   setGameOver(true);
                 } else {
-                  setScore((prevScore) => prevScore + 1);
+                  setUserScores((prevScore) => prevScore + 1);
                 }
                 updatedObj.wasScored = true;
               }
@@ -241,13 +239,20 @@ const WalkingDead: React.FC = () => {
       cancelAnimationFrame(animationFrameId);
       clearInterval(obstacleInterval);
     };
-  }, [gameStarted, gameOver, obstacles, currentSpeed, characterY]);
+  }, [
+    gameStarted,
+    gameOver,
+    obstacles,
+    currentSpeed,
+    characterY,
+    setUserScores,
+  ]);
 
   useEffect(() => {
-    if (score >= 50) {
+    if (userScores >= 50) {
       setCurrentSpeed((prevSpeed) => Math.min(prevSpeed + 2, 50));
     }
-  }, [score]);
+  }, [userScores]);
 
   return (
     <div
@@ -256,7 +261,7 @@ const WalkingDead: React.FC = () => {
       onKeyUp={handleKeyUp}
       style={{ outline: "none" }}
     >
-      <p>Game Score: {score}</p>
+      <p>Game Score: {userScores}</p>
       <canvas
         ref={canvasRef}
         width={canvasWidth}
@@ -266,7 +271,7 @@ const WalkingDead: React.FC = () => {
         {" "}
       </canvas>
       {gameOver && (
-        <p style={{ color: "red" }}>Game Over! Score final : {score}</p>
+        <p style={{ color: "red" }}>Game Over! Final Score: {userScores}</p>
       )}
       {!gameStarted ? (
         <button type="button" onClick={startGame}>

@@ -1,5 +1,6 @@
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
+import { useContextProvider } from "../context/ArcadiaContext";
 import "./ShootAlien.css";
 import targetImage from "../../../public/assets/alien.png";
 
@@ -25,8 +26,8 @@ const Target: React.FC<TargetProps> = ({ x, y, onClick }) => {
       className="target"
       style={{
         position: "absolute",
-        top: `${y - 25}px`,
-        left: `${x - 25}px`,
+        top: `${y}px`,
+        left: `${x}px`,
         width: "50px",
         height: "50px",
         cursor: "pointer",
@@ -36,7 +37,8 @@ const Target: React.FC<TargetProps> = ({ x, y, onClick }) => {
 };
 
 const ShootAlien: React.FC = () => {
-  const [score, setScore] = useState<number>(0);
+  const { userScores, setUserScores } = useContextProvider();
+
   const [targetPos, setTargetPos] = useState<{ x: number; y: number }>({
     x: Math.random() * (800 - 50),
     y: Math.random() * (600 - 50),
@@ -63,7 +65,8 @@ const ShootAlien: React.FC = () => {
 
   const handleTargetClick = (e: React.MouseEvent | React.KeyboardEvent) => {
     if (!gameOver) {
-      setScore(score + 1);
+      setUserScores(userScores + 1);
+
       setTargetPos({
         x: Math.random() * (800 - 50),
         y: Math.random() * (600 - 50),
@@ -85,7 +88,7 @@ const ShootAlien: React.FC = () => {
   };
 
   const handleRestart = () => {
-    setScore(0);
+    setUserScores(0);
     setTargetPos({
       x: Math.random() * (800 - 50),
       y: Math.random() * (600 - 50),
@@ -127,7 +130,7 @@ const ShootAlien: React.FC = () => {
         </div>
       )}
 
-      <div className="score">Score: {score}</div>
+      <div className="score">Score: {userScores}</div>
     </div>
   );
 };
