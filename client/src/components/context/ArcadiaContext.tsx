@@ -177,7 +177,6 @@ function ContextProvider({ children }: { children: React.ReactNode }) {
           console.info("userScore points actuels => ", userScores);
         }
       } catch (err) {
-        window.alert("erreur de lecture des jeux");
         console.error("Erreur lors de la connexion :", err);
       }
     };
@@ -213,7 +212,6 @@ function ContextProvider({ children }: { children: React.ReactNode }) {
           setDebPoints(0); // réinitialisation du nombre de points débattus après le clic sur le bouton
         }
       } catch (err) {
-        window.alert("erreur de lecture des jeux");
         console.error("Erreur lors de la connexion :", err);
       }
     };
