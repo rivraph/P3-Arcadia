@@ -21,8 +21,10 @@ const ContextArcadia = createContext<ContextArcadiaType>({
     registration_date: "",
     tel_num: "",
   },
-  userId: 0 || null,
+  userId: 0,
   edit: false,
+  userIdArray: 0,
+  setUserId: () => {},
   setDebPoints: () => {},
   setUserScores: () => {},
   setUserData: () => {},
@@ -30,6 +32,7 @@ const ContextArcadia = createContext<ContextArcadiaType>({
   handleKeyPress: () => {},
   handleEditClick: () => {},
   toggleSwitch: () => {},
+  setUserIdArray: () => {},
 });
 
 type ContextArcadiaType = {
@@ -38,6 +41,9 @@ type ContextArcadiaType = {
   userScores: number;
   setUserScores: Dispatch<SetStateAction<number>>;
   userData: UserData;
+  userIdArray: number;
+  setUserId: Dispatch<SetStateAction<number>>;
+  setUserIdArray: Dispatch<SetStateAction<number>>;
   setUserData: Dispatch<SetStateAction<UserData>>;
   userId: number | null;
   edit: boolean;
@@ -70,9 +76,14 @@ type UserData = {
 function ContextProvider({ children }: { children: React.ReactNode }) {
   const [debPoints, setDebPoints] = useState<number>(0);
   const [userScores, setUserScores] = useState<number>(0);
-  const [userId] = useState<number>(() => {
-    const storedId = localStorage.getItem("id");
-    return storedId !== null ? Number(storedId) : 0;
+  const [userId, setUserId] = useState<number>(() => {
+    const id = localStorage.getItem("id");
+    return id ? Number(id) : 0;
+  });
+
+  const [userIdArray, setUserIdArray] = useState<number>(() => {
+    const idArray = userId - 1;
+    return idArray ? idArray : 0;
   });
   const [userData, setUserData] = useState<UserData>({
     id: "",
@@ -114,6 +125,40 @@ function ContextProvider({ children }: { children: React.ReactNode }) {
     window.confirm("Are you sure? If you click OK, you validate your choice");
   };
 
+  // récupère toutes les données d'un user de la bdd
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/users/${userId}`,
+          {
+            method: "get",
+          },
+        );
+
+        if (response.status === 200) {
+          const [singleUserData] = await response.json();
+          console.info(
+            "controle userData stocké dans la BDD => ",
+            singleUserData,
+          );
+          setUserData(singleUserData);
+        } else {
+          console.error(
+            "Erreur lors de la récupération des données utilisateur:",
+            await response.json(),
+          );
+        }
+      } catch (error) {
+        console.error(
+          "Erreur lors de la récupération des données utilisateur:",
+          error,
+        );
+      }
+    };
+    fetchData();
+  }, [userId]);
+
   // fetch les données de l'utilisateur en fonction de l'id enregistrés dans le localStorage
   useEffect(() => {
     const fetchData = async () => {
@@ -127,7 +172,9 @@ function ContextProvider({ children }: { children: React.ReactNode }) {
         );
         if (response.ok) {
           const [userScoresData] = await response.json();
+          console.info("fetch userScoresData =>", userScoresData);
           setUserScores(userScoresData.user_points);
+          console.info("userScore points actuels => ", userScores);
         }
       } catch (err) {
         window.alert("erreur de lecture des jeux");
@@ -135,7 +182,7 @@ function ContextProvider({ children }: { children: React.ReactNode }) {
       }
     };
     fetchData();
-  }, [userId]);
+  }, [userId, userScores]);
 
   // mise à jour des points de l'utilisateur dans la bdd
   useEffect(() => {
@@ -171,45 +218,7 @@ function ContextProvider({ children }: { children: React.ReactNode }) {
       }
     };
     fetchData();
-  }, [userId, debPoints, userScores]);
-
-  //fonction collecte infos de la bdd au chargement de la page pour remplir les champs en dynamique
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/users`,
-          {
-            method: "get",
-          },
-        );
-
-        if (response.status === 200) {
-          const allUserData = await response.json();
-          const userIdMod = Number(userId - 1);
-          const userData = allUserData[userIdMod];
-          console.info("controle requete GET =>", allUserData);
-          console.info("controle ID mod =>", userIdMod);
-          setUserData(userData); // Enregistre les données dans le state
-          console.info(
-            "Controle userData lus en front après fetch au chargement de la page =>",
-            userData,
-          );
-        } else {
-          console.error(
-            "Erreur lors de la récupération des données utilisateur:",
-            await response.json(),
-          );
-        }
-      } catch (error) {
-        console.error(
-          "Erreur lors de la récupération des données utilisateur:",
-          error,
-        );
-      }
-    };
-    fetchData();
-  }, [userId]);
+  }, [debPoints, userId, userScores]);
 
   const handleKeyPress = (event: React.KeyboardEvent) => {
     if (event.key === "Enter" || event.key === " ") {
@@ -262,6 +271,9 @@ function ContextProvider({ children }: { children: React.ReactNode }) {
         debPoints,
         setDebPoints,
         userId,
+        setUserId,
+        userIdArray,
+        setUserIdArray,
         userScores,
         handleClickRewards,
         setUserScores,

@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import "../styles/Register.css";
 import { useRef, useState } from "react";
 import type { ChangeEventHandler, FormEventHandler } from "react";
+import { useContextProvider } from "../components/context/ArcadiaContext";
 
 function Register() {
   const emailRef = useRef<HTMLInputElement>(null);
@@ -9,6 +10,7 @@ function Register() {
   const lastnameRef = useRef<HTMLInputElement>(null);
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { setUserId } = useContextProvider();
 
   const handlePasswordChange: ChangeEventHandler<HTMLInputElement> = (
     event,
@@ -50,6 +52,7 @@ function Register() {
         );
         localStorage.setItem("role", role);
         localStorage.setItem("id", insertUser.id);
+        setUserId(insertUser.id);
         console.info(
           "Rôle enregistré dans localStorage :",
           localStorage.getItem("role"),

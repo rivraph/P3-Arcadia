@@ -2,12 +2,9 @@ import "../styles/Basket.css";
 import { useContextProvider } from "../components/context/ArcadiaContext";
 
 function Basket() {
-  const id = localStorage.getItem("id");
-  console.info("controle id envoyé pour le fetch", id);
   const { userScores, userData } = useContextProvider();
-
-  console.info("userScore dans basket =>", userScores);
-  console.info("userData dans basket =>", userData);
+  console.info("controle userData dans basket => ", userData.firstname);
+  console.info("controle userScores dans basket => ", userScores);
 
   return (
     <div className="mainbasket">
