@@ -39,7 +39,7 @@ type ContextArcadiaType = {
   setUserScores: Dispatch<SetStateAction<number>>;
   userData: UserData;
   setUserData: Dispatch<SetStateAction<UserData>>;
-  userId: string | null;
+  userId: number | null;
   edit: boolean;
   setEdit: Dispatch<SetStateAction<boolean>>;
   handleClickRewards: (
@@ -70,7 +70,10 @@ type UserData = {
 function ContextProvider({ children }: { children: React.ReactNode }) {
   const [debPoints, setDebPoints] = useState<number>(0);
   const [userScores, setUserScores] = useState<number>(0);
-  const [userId] = useState(() => localStorage.getItem("id"));
+  const [userId] = useState<number>(() => {
+    const storedId = localStorage.getItem("id");
+    return storedId !== null ? Number(storedId) : 0;
+  });
   const [userData, setUserData] = useState<UserData>({
     id: "",
     firstname: "",
@@ -94,12 +97,6 @@ function ContextProvider({ children }: { children: React.ReactNode }) {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     event.preventDefault();
-
-    // récupère l'ID
-    const articleId =
-      event.currentTarget.closest("div.points-card")?.querySelector("img")
-        ?.dataset.points || "";
-    console.info("récupération id =>", articleId);
 
     // récupère le nombre de parties physique échangées en prévision de rewards history
     const partNum =
@@ -178,8 +175,6 @@ function ContextProvider({ children }: { children: React.ReactNode }) {
 
   //fonction collecte infos de la bdd au chargement de la page pour remplir les champs en dynamique
   useEffect(() => {
-    console.info("num user lus au chargement de la page => ", userId);
-
     const fetchData = async () => {
       try {
         const response = await fetch(
@@ -191,10 +186,13 @@ function ContextProvider({ children }: { children: React.ReactNode }) {
 
         if (response.status === 200) {
           const allUserData = await response.json();
-          const userData = allUserData[0];
+          const userIdMod = Number(userId - 1);
+          const userData = allUserData[userIdMod];
+          console.info("controle requete GET =>", allUserData);
+          console.info("controle ID mod =>", userIdMod);
           setUserData(userData); // Enregistre les données dans le state
           console.info(
-            "User data lus en front au chargement de la page",
+            "Controle userData lus en front après fetch au chargement de la page =>",
             userData,
           );
         } else {
