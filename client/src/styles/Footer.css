@@ -19,3 +19,11 @@
     text-shadow: 2px 2px 5px black;
   }
 }
+@media screen and (max-width: 992px) {
+  .mainfooter h2 {
+    display: none;
+  }
+  .mainfooter h1 {
+    font-size: 19px;
+  }
+}
