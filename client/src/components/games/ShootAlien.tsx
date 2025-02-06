@@ -38,9 +38,10 @@ const Target: React.FC<TargetProps> = ({ x, y, onClick }) => {
 
 const ShootAlien: React.FC = () => {
   const { userScores, setUserScores } = useContextProvider();
+  const [userGameScore, setUserGameScore] = useState<number>(0);
 
   const [targetPos, setTargetPos] = useState<{ x: number; y: number }>({
-    x: Math.random() * (800 - 50),
+    x: Math.random() * (1000 - 50),
     y: Math.random() * (600 - 50),
   });
   const [timeLeft, setTimeLeft] = useState<number>(30);
@@ -51,6 +52,7 @@ const ShootAlien: React.FC = () => {
     y: 0,
   });
 
+  console.info(userScores);
   const gameContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -61,14 +63,15 @@ const ShootAlien: React.FC = () => {
       return () => clearInterval(timerId);
     }
     setGameOver(true);
-  }, [timeLeft]);
+    setUserScores((prevScore) => prevScore + userGameScore);
+  }, [timeLeft, setUserScores, userGameScore]);
 
   const handleTargetClick = (e: React.MouseEvent | React.KeyboardEvent) => {
     if (!gameOver) {
-      setUserScores(userScores + 1);
+      setUserGameScore(userGameScore + 1);
 
       setTargetPos({
-        x: Math.random() * (800 - 50),
+        x: Math.random() * (1000 - 50),
         y: Math.random() * (600 - 50),
       });
 
@@ -82,15 +85,16 @@ const ShootAlien: React.FC = () => {
         setPlusOnePos({ x: clickX, y: clickY });
         setShowPlusOne(true);
 
-        setTimeout(() => setShowPlusOne(false), 1000);
+        setTimeout(() => setShowPlusOne(false), 500);
       }
     }
   };
 
   const handleRestart = () => {
-    setUserScores(0);
+    setUserScores((prevScore) => prevScore + userGameScore);
+    setUserGameScore(0);
     setTargetPos({
-      x: Math.random() * (800 - 50),
+      x: Math.random() * (1000 - 50),
       y: Math.random() * (600 - 50),
     });
     setTimeLeft(30);
@@ -104,6 +108,7 @@ const ShootAlien: React.FC = () => {
       onClick={(e) => e.stopPropagation()}
       onKeyDown={(e) => e.stopPropagation()}
     >
+      <div className="score">Score {userGameScore}</div>
       <div className="timer">Time Left: {timeLeft}s</div>
       {gameOver && (
         <button
@@ -129,8 +134,6 @@ const ShootAlien: React.FC = () => {
           +1
         </div>
       )}
-
-      <div className="score">Score: {userScores}</div>
     </div>
   );
 };
