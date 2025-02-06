@@ -43,6 +43,18 @@ function homePage() {
           Register Now
         </Link>
       </div>
+      <div className="mobilemaindiv">
+        <h1>Welcome to ARCADIA :</h1>
+        <h2>Join the fun, play your favorite games, and earn rewards!</h2>
+
+        <h3>
+          Join ARCADIA now. Connect, play, win... and meet us indoors for
+          authentic arcade fun!
+        </h3>
+        <Link to="/register" className="button-link-homepage">
+          🎮 Register Now🎮
+        </Link>
+      </div>
     </div>
   );
 }
