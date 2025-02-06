@@ -1,11 +1,14 @@
 import { useRef, useState } from "react";
 import "../styles/Connexion.css";
 import { useNavigate } from "react-router-dom";
+import { useContextProvider } from "../components/context/ArcadiaContext";
 
 function Connexion() {
   const emailRef = useRef<HTMLInputElement>(null);
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { userId, setUserId } = useContextProvider();
+  console.info("userId", userId);
 
   const handlePasswordChange: React.ChangeEventHandler<HTMLInputElement> = (
     event,
@@ -36,16 +39,14 @@ function Connexion() {
         const dataObject = await response.json();
         console.info("Données reçues du backend :", dataObject);
 
-        // Mise à jour du rôle dans le localStorage
+        // Mise à jour du rôle dans le localStorage et state userId
         const role = dataObject.role;
         const firstname = dataObject.firstname;
         const id = dataObject.id;
         localStorage.setItem("id", id);
+        setUserId(id);
         localStorage.setItem("prenom", firstname);
         localStorage.setItem("role", role);
-        console.info(id);
-        console.info(firstname);
-        console.info(role);
 
         // Redirection basée sur le rôle
         if (localStorage.getItem("role") === "boss") {
