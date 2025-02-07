@@ -44,6 +44,7 @@
   transition-delay: 0.8s;
   z-index: 9999;
   border: solid;
+  left: 16.4vw;
 }
 
 .limenu {
