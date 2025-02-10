@@ -85,6 +85,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 80vw;
   }
 
   .profilform input {
@@ -97,6 +98,7 @@
     padding-left: 10px;
     padding-top: 3px;
     margin-left: 2rem;
+    width: 78vw;
   }
 
   .toggle-button button {
@@ -105,12 +107,12 @@
     position: relative;
     padding: 5px;
     scale: 1.2;
-    top: 8.5vh;
-    right: 4vw;
+    top: 17.5vh;
+    right: 15vw;
     background-color: #a14ed9e2;
     border-radius: 50%;
     box-shadow: 0px 0px 5px 5px #ffffff6b;
-    left: 40%;
+    z-index: 30;
   }
 
   .profil h1 {
@@ -119,7 +121,6 @@
     border-radius: 10px;
     text-shadow: 2px 2px 5px black;
     border: solid 2px black;
-
     margin-bottom: 1rem;
   }
 }
