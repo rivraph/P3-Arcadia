@@ -134,6 +134,9 @@ function Header({ isMenuOpen, setIsMenuOpen, menuRef }: headerProps) {
             Close
           </button>
         </div>
+        <div className="mobilebasket">
+          {!isHomePage && isConnect && <Basket />}
+        </div>
       </div>
       <img src="/assets/logo.png" alt="logo du site" />
       <div className="headerconnexion">
