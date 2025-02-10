@@ -9,11 +9,12 @@ type articleProps = {
   parts: number;
   description: string;
 };
+
 function Rewards() {
   const [article, setArticle] = useState<articleProps[]>([]);
-  const { handleClickRewards } = useContextProvider();
+  const { handleClickRewards, userScores } = useContextProvider();
 
-  // fetch les données stockés dans la BDD rewards
+  // Fetch des articles depuis la BDD
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -29,7 +30,7 @@ function Rewards() {
           setArticle(articleData);
         }
       } catch (err) {
-        window.alert("erreur de lecture des jeux");
+        window.alert("Erreur de lecture des jeux");
         console.error("Erreur lors de la connexion :", err);
       }
     };
@@ -40,28 +41,36 @@ function Rewards() {
     <>
       <h1>Rewards</h1>
       <div className="mainrewards">
-        {article.map((a) => (
-          <div className="rewards" key={a.id}>
-            <div className="points-card">
-              <img
-                src="../assets/card_mod.webp"
-                alt="arriere plan de la card"
-                data-points={a.id}
-              />
-              <div className="number">{a.parts}</div>
-              <button
-                type="button"
-                onClick={handleClickRewards}
-                data-points={a.debpoints.toString()}
-              >
-                {a.article_name}
-              </button>
-              <div className="description">
-                <p>{a.description}</p>
+        {article.map((a) => {
+          const isDisabled = a.debpoints > userScores;
+
+          return (
+            <div
+              className={`rewards ${isDisabled ? "disabled" : ""}`}
+              key={a.id}
+            >
+              <div className="points-card">
+                <img
+                  src="../assets/card_mod.webp"
+                  alt="arrière-plan de la carte"
+                  data-points={a.id}
+                />
+                <div className="number">{a.parts}</div>
+                <button
+                  type="button"
+                  onClick={isDisabled ? undefined : handleClickRewards}
+                  data-points={a.debpoints.toString()}
+                  disabled={isDisabled}
+                >
+                  {a.article_name}
+                </button>
+                <div className="description">
+                  <p>{a.description}</p>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </>
   );

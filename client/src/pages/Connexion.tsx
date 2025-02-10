@@ -43,8 +43,8 @@ function Connexion() {
         const role = dataObject.role;
         const firstname = dataObject.firstname;
         const id = dataObject.id;
+        setUserId(Number(id));
         localStorage.setItem("id", id);
-        setUserId(id);
         localStorage.setItem("prenom", firstname);
         localStorage.setItem("role", role);
 
