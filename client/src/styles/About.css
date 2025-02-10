@@ -4,6 +4,10 @@
   overflow-y: auto; /* Permettre le défilement vertical */
   display: flex;
   justify-content: center;
+  @media screen and (max-width: 992px) {
+    width: 80vw;
+    height: auto;
+  }
 }
 
 .about-content div {
@@ -18,6 +22,10 @@
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  @media screen and (max-width: 992px) {
+    width: 80vw;
+    height: auto;
+  }
 }
 
 .about-content h1,
