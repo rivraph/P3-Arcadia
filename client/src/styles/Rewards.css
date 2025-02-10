@@ -69,3 +69,14 @@
   background-color: var(--color1-);
   text-shadow: black 0px 0px 3px;
 }
+
+.rewards.disabled {
+  opacity: 0.7; /* Rend la carte plus transparente */
+  pointer-events: none; /* Empêche toute interaction */
+}
+
+.rewards.disabled button {
+  cursor: not-allowed; /* Change le curseur pour montrer que c'est désactivé */
+  background-color: #ccc; /* Grise le bouton */
+  color: #666;
+}

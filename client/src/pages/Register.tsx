@@ -10,7 +10,7 @@ function Register() {
   const lastnameRef = useRef<HTMLInputElement>(null);
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { setUserId } = useContextProvider();
+  const { setUserId, setUserScores } = useContextProvider();
 
   const handlePasswordChange: ChangeEventHandler<HTMLInputElement> = (
     event,
@@ -52,7 +52,9 @@ function Register() {
         );
         localStorage.setItem("role", role);
         localStorage.setItem("id", insertUser.id);
+        localStorage.setItem("gamename", "");
         setUserId(insertUser.id);
+        setUserScores(0);
         console.info(
           "Rôle enregistré dans localStorage :",
           localStorage.getItem("role"),

@@ -103,6 +103,14 @@ function ContextProvider({ children }: { children: React.ReactNode }) {
   });
   const [edit, setEdit] = useState(false);
 
+  // chargement userId au chargement du site
+  useEffect(() => {
+    const id = localStorage.getItem("id");
+    if (id) {
+      setUserId(Number(id));
+    }
+  }, []);
+
   // fonction du clic info du rewards choisi
   const handleClickRewards = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -120,13 +128,19 @@ function ContextProvider({ children }: { children: React.ReactNode }) {
     const debpts = Number(event.currentTarget.dataset.points) || 0;
     console.info("nombre de points à débiter =>", debpts);
 
-    //stock ces points dans debPoints
-    setDebPoints(debpts);
-    window.confirm("Are you sure? If you click OK, you validate your choice");
+    //stock ces points dans debPoints si confirmé par l'utilisateur
+    const isConfirmed = window.confirm(
+      "Are you sure? If you click OK, you validate your choice",
+    );
+    if (isConfirmed) {
+      setDebPoints(debpts);
+    }
   };
 
-  // récupère toutes les données d'un user de la bdd
+  // récupère toutes les données d'un user de la bdd userData
   useEffect(() => {
+    if (!userId) return;
+
     const fetchData = async () => {
       try {
         const response = await fetch(
@@ -159,7 +173,7 @@ function ContextProvider({ children }: { children: React.ReactNode }) {
     fetchData();
   }, [userId]);
 
-  // fetch les données de l'utilisateur en fonction de l'id enregistrés dans le localStorage
+  // fetch les données Scores de l'utilisateur en fonction de l'id enregistrés dans le localStorage userScoresData
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -173,8 +187,13 @@ function ContextProvider({ children }: { children: React.ReactNode }) {
         if (response.ok) {
           const [userScoresData] = await response.json();
           console.info("fetch userScoresData =>", userScoresData);
-          setUserScores(userScoresData.user_points);
-          console.info("userScore points actuels => ", userScores);
+          if (userScoresData.user_points >= 0) {
+            setUserScores(userScoresData.user_points);
+            console.info("userScore points actuels => ", userScores);
+          } else {
+            console.info("nouvel utilisateur donc =>", userScoresData);
+            setUserScores(0);
+          }
         }
       } catch (err) {
         console.error("Erreur lors de la connexion :", err);
@@ -183,7 +202,7 @@ function ContextProvider({ children }: { children: React.ReactNode }) {
     fetchData();
   }, [userId, userScores]);
 
-  // mise à jour des points de l'utilisateur dans la bdd
+  // mise à jour des points de l'utilisateur dans la bdd UpdateScoresData et debPoints
   useEffect(() => {
     if (debPoints === 0) return;
     const userUpdatePoints = Number(userScores) - debPoints;

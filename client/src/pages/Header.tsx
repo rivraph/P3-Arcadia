@@ -42,15 +42,15 @@ function Header({ isMenuOpen, setIsMenuOpen, menuRef }: headerProps) {
         case "My Profile":
           navigate("/users/profil");
           break;
-        case "Scores History":
+        /*  case "Scores History":
           navigate("/users/scoreshistory");
-          break;
+          break; */
         case "Rewards":
           navigate("/users/rewards");
           break;
-        case "Rewards History":
+        /*  case "Rewards History":
           navigate("/users/rewardshistory");
-          break;
+          break; */
         case "Contact us":
           navigate("/users/contact");
           break;
@@ -72,15 +72,15 @@ function Header({ isMenuOpen, setIsMenuOpen, menuRef }: headerProps) {
         case "My Profile":
           navigate("/admin/profil");
           break;
-        case "Scores History":
+        /*  case "Scores History":
           navigate("/admin/scoreshistory");
-          break;
+          break; */
         case "Rewards":
           navigate("/admin/rewards");
           break;
-        case "Rewards History":
+        /* case "Rewards History":
           navigate("/admin/rewardshistory");
-          break;
+          break; */
         case "Contact us":
           navigate("/admin/contact");
           break;
@@ -172,7 +172,7 @@ function Header({ isMenuOpen, setIsMenuOpen, menuRef }: headerProps) {
         >
           My Profile
         </li>
-        <li
+        {/*  <li
           className="limenu"
           onClick={handleMenuClick}
           onKeyDown={(e) => {
@@ -180,7 +180,7 @@ function Header({ isMenuOpen, setIsMenuOpen, menuRef }: headerProps) {
           }}
         >
           Scores History
-        </li>
+        </li> */}
         <li
           className="limenu"
           onClick={handleMenuClick}
@@ -190,7 +190,7 @@ function Header({ isMenuOpen, setIsMenuOpen, menuRef }: headerProps) {
         >
           Rewards
         </li>
-        <li
+        {/*  <li
           className="limenu"
           onClick={handleMenuClick}
           onKeyDown={(e) => {
@@ -198,7 +198,7 @@ function Header({ isMenuOpen, setIsMenuOpen, menuRef }: headerProps) {
           }}
         >
           Rewards History
-        </li>
+        </li> */}
         <li
           className="limenu"
           onClick={handleMenuClick}
