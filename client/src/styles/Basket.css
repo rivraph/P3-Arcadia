@@ -9,3 +9,22 @@
 .mainbasket h1 {
   font-size: 200%;
 }
+
+@media screen and (max-width: 992px) {
+  .mainbasket {
+    height: 15vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .mainbasket h1 {
+    font-size: 200%;
+    background-color: #a14ed9;
+    border-radius: 10px;
+    text-shadow: 2px 2px 5px black;
+    border: solid 2px black;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
