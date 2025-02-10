@@ -31,9 +31,6 @@
   color: white;
   text-shadow: 2px 2px 5px black;
   border: solid 2px black;
-  @media screen and (max-width: 992px) {
-    font-size: 18px;
-  }
 }
 
 .list-group {
@@ -113,6 +110,8 @@ img {
     justify-content: space-around;
     gap: 5px;
     height: 8vh;
+    font-size: 24px;
+    align-items: center;
   }
 
   .menucontener {
@@ -125,8 +124,9 @@ img {
   }
   .menubutton {
     margin-top: 1rem;
-    left: 2vw;
+    left: 1vw;
     position: relative;
+    font-size: 18px;
   }
   .headerconnexion {
     display: none;
@@ -186,7 +186,7 @@ img {
   }
 }
 
-@media screen and (min-width: 993px) {
+@media screen and (min-width: 992px) {
   .login-button {
     display: none !important;
   }

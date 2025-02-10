@@ -70,22 +70,22 @@
   position: relative;
   width: 10vw;
   font-size: 2vh;
-  bottom: 450px;
+  bottom: 46vh;
   text-shadow: var(--color1-) 0px 0px 3px;
   @media screen and (max-width: 992px) {
     width: 40vw;
-    bottom: 60vh;
+    bottom: 53vh;
   }
 }
 
 .mainrewards p {
   text-align: center;
   position: relative;
-  bottom: 230px;
+  bottom: 23vh;
   background-color: var(--color1-);
   text-shadow: black 0px 0px 3px;
   @media screen and (max-width: 992px) {
-    bottom: 29vh;
+    bottom: 26vh;
   }
 }
 
