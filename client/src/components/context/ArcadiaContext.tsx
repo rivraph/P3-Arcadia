@@ -189,7 +189,6 @@ function ContextProvider({ children }: { children: React.ReactNode }) {
           console.info("fetch userScoresData =>", userScoresData);
           if (userScoresData.user_points >= 0) {
             setUserScores(userScoresData.user_points);
-            console.info("userScore points actuels => ", userScores);
           } else {
             console.info("nouvel utilisateur donc =>", userScoresData);
             setUserScores(0);
@@ -200,7 +199,7 @@ function ContextProvider({ children }: { children: React.ReactNode }) {
       }
     };
     fetchData();
-  }, [userId, userScores]);
+  }, [userId]);
 
   // mise à jour des points de l'utilisateur dans la bdd UpdateScoresData et debPoints
   useEffect(() => {

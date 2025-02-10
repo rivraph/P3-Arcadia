@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import "../styles/homePage.css";
+import { useEffect } from "react";
 
 function homePage() {
-  localStorage.setItem("role", "");
-  localStorage.setItem("prenom", "");
-  localStorage.setItem("id", "");
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
 
   return (
     <div className="mainhomepage">

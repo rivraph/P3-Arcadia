@@ -30,23 +30,16 @@ const About: React.FC = () => {
             gaming.For several years, our physical store has been a must for
             fans of pinball machines, arcade games and retro consoles. With this
             site, we aim to expand our community by offering a new way to play,
-            blending the digital with the real experience.
-          </p>
-          <p>
-            Exclusive events: Gaming competitions, themed nights, and exciting
-            new game releases.
-          </p>
-          <p>
-            Modular spaces: Perfect for family outings, get-togethers with
+            blending the digital with the real experience. Exclusive events:
+            Gaming competitions, themed nights, and exciting new game releases.
+            {/* Modular spaces: Perfect for family outings, get-togethers with
             friends, or corporate events.
-          </p>
-          <p>
+          
             Rules and conditions: We provide clear information about the rules
             of each game and the conditions for using our facilities.
-          </p>
-          <p>
+          
             Discover new arrivals: Stay updated on the latest machines and games
-            added to our collection.
+            added to our collection. */}
           </p>
         </div>
 

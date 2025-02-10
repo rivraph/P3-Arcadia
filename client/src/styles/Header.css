@@ -31,6 +31,9 @@
   color: white;
   text-shadow: 2px 2px 5px black;
   border: solid 2px black;
+  @media screen and (max-width: 992px) {
+    font-size: 18px;
+  }
 }
 
 .list-group {
@@ -81,6 +84,7 @@ img {
   justify-self: end;
   padding-right: 30px;
 }
+
 @media screen and (max-width: 992px) {
   .list-group {
     background-color: #a14ed9;
@@ -117,10 +121,12 @@ img {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 2;
+    padding: 2%;
   }
   .menubutton {
     margin-top: 1rem;
+    left: 2vw;
+    position: relative;
   }
   .headerconnexion {
     display: none;
