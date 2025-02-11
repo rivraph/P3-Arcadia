@@ -59,13 +59,13 @@
 
 .points-card img {
   margin-bottom: 1rem;
-  box-shadow: 0px 0px 10px 15px var(--color1-);
+  box-shadow: 0px 0px 5px 5px #ffffff6b;
   width: 250px;
   height: 350px;
 }
 
 .points-card button {
-  box-shadow: 0px 0px 10px 15px var(--color1-);
+  box-shadow: 0px 0px 5px 5px #ffffff6b;
   margin-top: auto;
   position: relative;
   width: 10vw;
