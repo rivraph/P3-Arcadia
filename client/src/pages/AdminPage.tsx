@@ -113,13 +113,13 @@ function AdminPage() {
           ))}
         </div>
         <div className="column">
-          <h2>MDP</h2>
+          <h2>Password</h2>
           {usersDatas.map((u) => (
             <p key={u.id}>{u.password}</p>
           ))}
         </div>
         <div className="column">
-          <h2>MDP</h2>
+          <h2>Role</h2>
           {usersDatas.map((u) => (
             <p key={u.id}>{u.role}</p>
           ))}
