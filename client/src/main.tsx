@@ -9,6 +9,7 @@ import {
 import Admin from "./components/auth/isAdmin";
 import Users from "./components/auth/isUsers";
 import About from "./pages/About";
+import AdminPage from "./pages/AdminPage";
 import App from "./pages/App";
 import Connexion from "./pages/Connexion";
 import Contact from "./pages/Contact";
@@ -29,7 +30,7 @@ const router = createBrowserRouter([
       <Navigate
         to={
           localStorage.getItem("role") === "boss"
-            ? "/admin/profil"
+            ? "/admin/adminpage"
             : localStorage.getItem("role") === "user"
               ? "/users/profil"
               : "/homepage"
@@ -95,6 +96,10 @@ const router = createBrowserRouter([
         path: "admin",
         element: <Admin />, // Composant administrateur
         children: [
+          {
+            path: "adminpage", // Profil admin
+            element: <AdminPage />,
+          },
           {
             path: "profil", // Profil admin
             element: <Profil />,
