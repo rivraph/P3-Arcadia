@@ -40,10 +40,10 @@ const ShootAlien: React.FC = () => {
   const { setUserScores } = useContextProvider();
   const [userGameScore, setUserGameScore] = useState<number>(0);
   const [targetPos, setTargetPos] = useState<{ x: number; y: number }>({
-    x: Math.random() * (1000 - 50),
+    x: Math.random() * (1200 - 50),
     y: Math.random() * (600 - 50),
   });
-  const [timeLeft, setTimeLeft] = useState<number>(5);
+  const [timeLeft, setTimeLeft] = useState<number>(3);
   const [gameOver, setGameOver] = useState<boolean>(false);
   const [showPlusOne, setShowPlusOne] = useState<boolean>(false);
   const [plusOnePos, setPlusOnePos] = useState<{ x: number; y: number }>({
@@ -69,7 +69,7 @@ const ShootAlien: React.FC = () => {
 
       setTargetPos({
         x: Math.random() * (1000 - 50),
-        y: Math.random() * (600 - 50),
+        y: Math.random() * (550 - 50),
       });
 
       if (gameContainerRef.current) {
@@ -79,7 +79,7 @@ const ShootAlien: React.FC = () => {
         const clickY = (e as React.MouseEvent).clientY - gameContainerRect.top;
         setPlusOnePos({ x: clickX, y: clickY });
         setShowPlusOne(true);
-        setTimeout(() => setShowPlusOne(false), 500);
+        setTimeout(() => setShowPlusOne(false), 100);
       }
     }
   };
@@ -87,10 +87,10 @@ const ShootAlien: React.FC = () => {
   const handleRestart = () => {
     setUserGameScore(0);
     setTargetPos({
-      x: Math.random() * (1000 - 50),
+      x: Math.random() * (1200 - 50),
       y: Math.random() * (600 - 50),
     });
-    setTimeLeft(10);
+    setTimeLeft(3);
     setGameOver(false);
   };
 
