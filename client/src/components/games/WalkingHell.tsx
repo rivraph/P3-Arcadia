@@ -3,9 +3,12 @@ import { useContextProvider } from "../context/ArcadiaContext";
 import "./WalkingHell.css";
 
 const WalkingDead: React.FC = () => {
+  const [showGameOver, setShowGameOver] = useState(false);
   const canvasWidth = 1280;
   const canvasHeight = 720;
-  const jumpHeight = 300;
+  const characterHeight = canvasHeight * 0.2; // 20% de la hauteur de l'écran
+  const characterWidth = 20;
+  const jumpHeight = canvasHeight - characterHeight;
   const jumpDuration = 300;
 
   const { userScores, setUserScores } = useContextProvider();
@@ -57,6 +60,11 @@ const WalkingDead: React.FC = () => {
   };
 
   const gameLoop = useCallback(() => {
+    if (gameOver) {
+      if (gameLoopRef.current) cancelAnimationFrame(gameLoopRef.current);
+      return;
+    }
+
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext("2d");
     if (!canvas || !ctx) return;
@@ -67,25 +75,36 @@ const WalkingDead: React.FC = () => {
 
     // Dessiner le personnage
     ctx.fillStyle = "blue";
-    ctx.fillRect(50, characterY, 20, 50);
+    ctx.fillRect(50, characterY, characterWidth, characterHeight);
 
     // Mise à jour des obstacles
     obstaclesRef.current = obstaclesRef.current
       .map((obj) => {
         const updatedObj = { ...obj, x: obj.x - currentSpeed };
 
-        if (
-          updatedObj.x < 70 &&
-          updatedObj.x > 50 &&
-          Math.abs(updatedObj.y - characterY) < 30
-        ) {
+        const obstacleWidth = 40;
+        const obstacleHeight = 40;
+
+        const isColliding =
+          updatedObj.x < 50 + characterWidth &&
+          updatedObj.x + obstacleWidth > 50 &&
+          updatedObj.y < characterY + characterHeight &&
+          updatedObj.y + obstacleHeight > characterY;
+
+        if (isColliding) {
           if (!updatedObj.wasScored) {
             if (updatedObj.type === "heart") {
               setUserGameScore((prevScore) => prevScore + 4);
             } else if (updatedObj.type === "bomb") {
               setGameOver(true);
+              setShowGameOver(true);
               setUserScores((prevScore) => prevScore + userGameScore);
               setUserGameScore(0);
+
+              if (gameLoopRef.current) {
+                cancelAnimationFrame(gameLoopRef.current);
+              }
+              return null;
             } else {
               setUserGameScore((prevScore) => prevScore + 1);
             }
@@ -110,15 +129,23 @@ const WalkingDead: React.FC = () => {
       ctx.fillText(emoji, x, y);
     }
 
-    if (!gameOver) {
-      gameLoopRef.current = requestAnimationFrame(gameLoop);
-    } else {
+    // 🔥 Afficher "GAME OVER" au centre en cas de défaite
+    if (gameOver) {
       ctx.fillStyle = "red";
-      ctx.font = "50px Arial";
+      ctx.font = "80px Arial"; // 🔥 Texte en gros
       ctx.textAlign = "center";
       ctx.fillText("GAME OVER", canvasWidth / 2, canvasHeight / 2);
     }
-  }, [characterY, currentSpeed, gameOver, setUserScores, userGameScore]);
+
+    gameLoopRef.current = requestAnimationFrame(gameLoop);
+  }, [
+    characterY,
+    currentSpeed,
+    gameOver,
+    setUserScores,
+    userGameScore,
+    characterHeight,
+  ]);
 
   const spawnObstacle = useCallback(() => {
     if (obstaclesRef.current.length >= 5) return;
@@ -127,14 +154,7 @@ const WalkingDead: React.FC = () => {
     const type =
       obstacleTypes[Math.floor(Math.random() * obstacleTypes.length)];
 
-    const yPositions = [
-      canvasHeight - 40,
-      canvasHeight - 60,
-      canvasHeight - 80,
-      canvasHeight - 100,
-      canvasHeight - 120,
-    ];
-    const y = yPositions[Math.floor(Math.random() * yPositions.length)];
+    const y = Math.random() * (canvasHeight - 35); // 🔥 Position aléatoire en hauteur
 
     obstaclesRef.current.push({ x: canvasWidth, y, type, wasScored: false });
   }, []);
@@ -172,28 +192,31 @@ const WalkingDead: React.FC = () => {
   }, [gameStarted, gameLoop, spawnObstacle]);
 
   return (
-    <div
-      className="walkingclass"
-      onKeyDown={handleKeyDown}
-      onKeyUp={handleKeyUp}
-    >
-      <p>Score {userGameScore}</p>
-      <canvas
-        ref={canvasRef}
-        width={canvasWidth}
-        height={canvasHeight}
-        style={{ border: "1px solid black" }}
-      />
-      {!gameStarted ? (
-        <button type="button" onClick={startGame}>
-          Start
-        </button>
-      ) : (
-        <button type="button" onClick={restartGame}>
-          Restart
-        </button>
-      )}
-    </div>
+    <>
+      <div
+        className="walkingclass"
+        onKeyDown={handleKeyDown}
+        onKeyUp={handleKeyUp}
+      >
+        <p>Score {userGameScore}</p>
+        <canvas
+          ref={canvasRef}
+          width={canvasWidth}
+          height={canvasHeight}
+          style={{ border: "1px solid black" }}
+        />
+        {!gameStarted ? (
+          <button type="button" onClick={startGame}>
+            Start
+          </button>
+        ) : (
+          <button type="button" onClick={restartGame}>
+            Restart
+          </button>
+        )}
+      </div>
+      {showGameOver && <div className="game-over-overlay">GAME OVER</div>}
+    </>
   );
 };
 
