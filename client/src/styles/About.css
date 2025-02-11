@@ -11,7 +11,8 @@
 }
 
 .about-content div {
-  background: #a14ed9;
+  background-color: #a14ed9de;
+  box-shadow: 0px 0px 5px 5px #ffffff6b;
   padding: 20px;
   border-radius: 10px;
   max-width: 80vw;

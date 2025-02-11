@@ -49,7 +49,7 @@ function Profil() {
   return (
     <div className="mainprofil">
       <div className="profil">
-        <h1 id="profiltitle">Profil de {userData.firstname}</h1>
+        <h1 id="profiltitle">{userData.firstname}'s profile</h1>
         <form className="profilform">
           <label htmlFor="firstname">Firstname</label>
           <input
