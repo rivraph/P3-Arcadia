@@ -1,7 +1,11 @@
 .gamelist-main {
   height: 70vh;
+  width: 85vw;
   display: flex;
   flex-wrap: wrap;
+  overflow-y: auto;
+  scrollbar-color: var(--color4-);
+  scrollbar-width: thin;
 }
 
 .gamelist-main h1 {
@@ -69,5 +73,9 @@
     position: relative;
     background-color: transparent;
     border: none;
+  }
+  .gamelist-main h2 {
+    font-size: 200%;
+    height: 8vh;
   }
 }
