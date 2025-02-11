@@ -33,6 +33,7 @@ router.get("/api/articles", articleAction.browse);
 // Define scores-related routes
 import scoresAction from "./modules/scores/scoresActions";
 
+router.get("/api/scores", scoresAction.browse);
 router.get("/api/scores/:id", scoresAction.read);
 router.put("/api/scores/:id", scoresAction.update);
 

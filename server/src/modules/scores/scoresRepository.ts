@@ -2,7 +2,20 @@ import type { ResultSetHeader } from "mysql2";
 import type { Rows } from "../../../database/client";
 import databaseClient from "../../../database/client";
 
+type scoresprops = {
+  id: number;
+  users_id: number;
+  user_points: number;
+  game_max_score_id: number;
+  game_max_score: number;
+};
+
 class scoresRepository {
+  async readAll() {
+    const [rows] = await databaseClient.query<Rows>("select * from scores");
+    return rows as scoresprops[];
+  }
+
   async read(id: number) {
     const [rows] = await databaseClient.query<Rows>(
       "SELECT s.id, s.users_id, s.user_points, u.firstname FROM scores AS s JOIN users AS u ON s.id = ?",
