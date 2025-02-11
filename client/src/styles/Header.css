@@ -9,7 +9,7 @@
 
 .menucontener {
   display: flex;
-  justify-content: end;
+  justify-content: center;
   flex-direction: column;
   align-items: center;
   padding: 20px 20px 0 0;
@@ -40,10 +40,11 @@
   width: 11%;
   position: absolute;
   top: 10%;
-  transition-duration: 0.8s ease-in-out;
-  transition-delay: 0, 8s;
+  transition-duration: 0.8s;
+  transition-delay: 0.8s;
   z-index: 9999;
   border: solid;
+  left: 16.4vw;
 }
 
 .limenu {
@@ -79,4 +80,125 @@ img {
   grid-column: 3 / 4;
   justify-self: end;
   padding-right: 30px;
+}
+
+@media screen and (max-width: 992px) {
+  .list-group {
+    background-color: #a14ed9;
+    height: auto;
+    width: 80%;
+    position: absolute;
+    top: 40%;
+    transition-duration: 0.8s;
+    transition-delay: 0.8s;
+    z-index: 9999;
+    border: solid;
+    left: 8%;
+    height: 50vh;
+  }
+  .limenu {
+    cursor: pointer;
+    background-color: var(--color-primary);
+    overflow: visible;
+    transition: 0.5s ease-in-out;
+    overflow-y: repeat-y;
+    z-index: 1000;
+    padding: 3px;
+    text-decoration: none;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-around;
+    gap: 5px;
+    height: 8vh;
+    font-size: 24px;
+    align-items: center;
+  }
+
+  .menucontener {
+    width: 100vw;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2%;
+  }
+  .menubutton {
+    margin-top: 1rem;
+    left: 1vw;
+    position: relative;
+    font-size: 18px;
+  }
+  .headerconnexion {
+    display: none;
+  }
+  .header {
+    display: flex;
+    align-items: center;
+    flex-direction: column-reverse;
+    margin-bottom: 0;
+  }
+  .login-button {
+    background-color: #a14ed9c7;
+    color: white;
+    flex-direction: column;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    text-shadow: 2px 2px 5px black;
+    margin-top: 1em;
+  }
+
+  .login-button:hover {
+    background-color: var(--color2-);
+  }
+
+  .overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  }
+
+  .modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    z-index: 1000;
+  }
+
+  .modal.show {
+    display: block;
+  }
+
+  .overlay.show {
+    display: block;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .login-button {
+    display: none !important;
+  }
+
+  .overlay {
+    display: none;
+  }
+
+  .modal {
+    display: none;
+  }
+  .mobilebasket {
+    display: none;
+  }
 }

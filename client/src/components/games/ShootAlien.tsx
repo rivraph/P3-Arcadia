@@ -1,5 +1,6 @@
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
+import { useContextProvider } from "../context/ArcadiaContext";
 import "./ShootAlien.css";
 import targetImage from "../../../public/assets/alien.png";
 
@@ -25,8 +26,8 @@ const Target: React.FC<TargetProps> = ({ x, y, onClick }) => {
       className="target"
       style={{
         position: "absolute",
-        top: `${y - 25}px`,
-        left: `${x - 25}px`,
+        top: `${y}px`,
+        left: `${x}px`,
         width: "50px",
         height: "50px",
         cursor: "pointer",
@@ -36,19 +37,19 @@ const Target: React.FC<TargetProps> = ({ x, y, onClick }) => {
 };
 
 const ShootAlien: React.FC = () => {
-  const [score, setScore] = useState<number>(0);
+  const { setUserScores } = useContextProvider();
+  const [userGameScore, setUserGameScore] = useState<number>(0);
   const [targetPos, setTargetPos] = useState<{ x: number; y: number }>({
-    x: Math.random() * (800 - 50),
+    x: Math.random() * (1200 - 50),
     y: Math.random() * (600 - 50),
   });
-  const [timeLeft, setTimeLeft] = useState<number>(30);
+  const [timeLeft, setTimeLeft] = useState<number>(3);
   const [gameOver, setGameOver] = useState<boolean>(false);
   const [showPlusOne, setShowPlusOne] = useState<boolean>(false);
   const [plusOnePos, setPlusOnePos] = useState<{ x: number; y: number }>({
     x: 0,
     y: 0,
   });
-
   const gameContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -59,38 +60,37 @@ const ShootAlien: React.FC = () => {
       return () => clearInterval(timerId);
     }
     setGameOver(true);
-  }, [timeLeft]);
+    setUserScores((prevScore) => prevScore + userGameScore);
+  }, [timeLeft, setUserScores, userGameScore]);
 
   const handleTargetClick = (e: React.MouseEvent | React.KeyboardEvent) => {
     if (!gameOver) {
-      setScore(score + 1);
+      setUserGameScore(userGameScore + 1);
+
       setTargetPos({
-        x: Math.random() * (800 - 50),
-        y: Math.random() * (600 - 50),
+        x: Math.random() * (1000 - 50),
+        y: Math.random() * (550 - 50),
       });
 
       if (gameContainerRef.current) {
         const gameContainerRect =
           gameContainerRef.current.getBoundingClientRect();
-
         const clickX = (e as React.MouseEvent).clientX - gameContainerRect.left;
         const clickY = (e as React.MouseEvent).clientY - gameContainerRect.top;
-
         setPlusOnePos({ x: clickX, y: clickY });
         setShowPlusOne(true);
-
-        setTimeout(() => setShowPlusOne(false), 1000);
+        setTimeout(() => setShowPlusOne(false), 100);
       }
     }
   };
 
   const handleRestart = () => {
-    setScore(0);
+    setUserGameScore(0);
     setTargetPos({
-      x: Math.random() * (800 - 50),
+      x: Math.random() * (1200 - 50),
       y: Math.random() * (600 - 50),
     });
-    setTimeLeft(30);
+    setTimeLeft(3);
     setGameOver(false);
   };
 
@@ -101,6 +101,7 @@ const ShootAlien: React.FC = () => {
       onClick={(e) => e.stopPropagation()}
       onKeyDown={(e) => e.stopPropagation()}
     >
+      <div className="score">Score {userGameScore}</div>
       <div className="timer">Time Left: {timeLeft}s</div>
       {gameOver && (
         <button
@@ -126,8 +127,6 @@ const ShootAlien: React.FC = () => {
           +1
         </div>
       )}
-
-      <div className="score">Score: {score}</div>
     </div>
   );
 };

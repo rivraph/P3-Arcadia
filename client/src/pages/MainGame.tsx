@@ -18,13 +18,15 @@ function MainGame() {
   const gameNumber = localStorage.getItem("gamenumber");
   console.info("id de jeu sélectionné :", gameNumber);
 
-  const handleclick = () => {
+  const handleclickBack = () => {
     if (localStorage.getItem("role") === "user") {
       localStorage.setItem("gamenumber", "");
+      setGameName("");
       navigate("/users/gamelist");
     }
     if (localStorage.getItem("role") === "boss") {
       localStorage.setItem("gamenumber", "");
+      setGameName("");
       navigate("/admin/gamelist");
     }
   };
@@ -32,10 +34,12 @@ function MainGame() {
   const handleKeyDown = () => {
     if (localStorage.getItem("role") === "user") {
       localStorage.setItem("gamenumber", "");
+      setGameName("");
       navigate("/users/gamelist");
     }
     if (localStorage.getItem("role") === "boss") {
       localStorage.setItem("gamenumber", "");
+      setGameName("");
       navigate("/admin/gamelist");
     }
   };
@@ -48,7 +52,7 @@ function MainGame() {
           <button
             id="button"
             type="button"
-            onClick={handleclick}
+            onClick={handleclickBack}
             onKeyDown={handleKeyDown}
           >
             {" "}

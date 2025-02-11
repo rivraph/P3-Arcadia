@@ -18,8 +18,8 @@ import NotFound from "./pages/NotFound";
 import Profil from "./pages/Profil";
 import Register from "./pages/Register";
 import Rewards from "./pages/Rewards";
-import RewardsHistory from "./pages/RewardsHistory";
-import ScoresHistory from "./pages/ScoresHistory";
+/* import RewardsHistory from "./pages/RewardsHistory";
+import ScoresHistory from "./pages/ScoresHistory"; */
 import HomePage from "./pages/homePage";
 
 const router = createBrowserRouter([
@@ -77,14 +77,14 @@ const router = createBrowserRouter([
             path: "rewards",
             element: <Rewards />,
           },
-          {
+          /*  {
             path: "scoreshistory",
             element: <ScoresHistory />,
           },
           {
             path: "rewardshistory",
             element: <RewardsHistory />,
-          },
+          }, */
           {
             path: "contact", // Page de contact
             element: <Contact />,
@@ -115,14 +115,14 @@ const router = createBrowserRouter([
             path: "rewards", // Récompenses admin
             element: <Rewards />,
           },
-          {
+          /* {
             path: "scoreshistory", // Historique des scores admin
             element: <ScoresHistory />,
           },
           {
             path: "rewardshistory", // Historique des récompenses admin
             element: <RewardsHistory />,
-          },
+          }, */
           {
             path: "contact", // Contact admin
             element: <Contact />,

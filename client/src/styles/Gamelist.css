@@ -45,9 +45,29 @@
   bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
-  color: none;
+  color: transparent;
 }
 
 .gamelist-main h2 {
   font-size: 250%;
+}
+
+@media screen and (max-width: 992px) {
+  .gamelist-main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex-wrap: nowrap;
+    overflow-y: auto;
+  }
+
+  .game-card {
+    width: 80vw;
+    margin: 1rem;
+    box-sizing: border-box;
+
+    position: relative;
+    background-color: transparent;
+    border: none;
+  }
 }

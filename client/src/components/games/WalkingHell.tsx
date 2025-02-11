@@ -1,53 +1,54 @@
-import type React from "react";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useContextProvider } from "../context/ArcadiaContext";
 import "./WalkingHell.css";
 
 const WalkingDead: React.FC = () => {
+  const [showGameOver, setShowGameOver] = useState(false);
   const canvasWidth = 1280;
   const canvasHeight = 720;
-  const gameInterval = 1000 / 60;
-  const jumpHeight = 200;
-  const jumpDuration = 800;
+  const characterHeight = canvasHeight * 0.2; // 20% de la hauteur de l'écran
+  const characterWidth = 20;
+  const jumpHeight = canvasHeight - characterHeight;
+  const jumpDuration = 300;
 
+  const { userScores, setUserScores } = useContextProvider();
+  const [userGameScore, setUserGameScore] = useState<number>(0);
+  console.info(userScores);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const gameLoopRef = useRef<(() => void) | null>(null);
-  const [characterY, setCharacterY] = useState(canvasHeight - 50);
-  const [characterAction, setCharacterAction] = useState<
-    "run" | "jump" | "duck" | "punch"
-  >("run");
-  const [obstacles, setObstacles] = useState<
+  const gameLoopRef = useRef<number | null>(null);
+  const obstaclesRef = useRef<
     { x: number; y: number; type: string; wasScored: boolean }[]
   >([]);
-  const [score, setScore] = useState(0);
+
+  const [characterY, setCharacterY] = useState(canvasHeight - 80);
+  const [characterAction, setCharacterAction] = useState<
+    "run" | "jump" | "duck"
+  >("run");
   const [gameOver, setGameOver] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
-  const [currentSpeed, setCurrentSpeed] = useState(2);
-
+  const [currentSpeed, setCurrentSpeed] = useState(6);
+  console.info(characterAction);
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === "ArrowUp" && characterAction === "run") {
+    if (e.key === "ArrowUp") {
       setCharacterAction("jump");
-      const startY = canvasHeight - 50;
+      const startY = canvasHeight - 100;
       const startTime = Date.now();
 
       const animateJump = () => {
         const elapsed = Date.now() - startTime;
         const progress = elapsed / jumpDuration;
-        if (progress < 0.5) {
+        if (progress < 1) {
           setCharacterY(startY - jumpHeight * Math.sin(Math.PI * progress));
-        } else if (progress < 1) {
-          setCharacterY(startY - jumpHeight * Math.sin(Math.PI * progress));
+          requestAnimationFrame(animateJump);
         } else {
           setCharacterY(canvasHeight - 50);
           setCharacterAction("run");
-        }
-        if (progress < 1) {
-          requestAnimationFrame(animateJump);
         }
       };
       requestAnimationFrame(animateJump);
     } else if (e.key === "ArrowDown") {
       setCharacterAction("duck");
-      setCharacterY(canvasHeight - 15);
+      setCharacterY(canvasHeight - 20);
     }
   };
 
@@ -58,226 +59,164 @@ const WalkingDead: React.FC = () => {
     }
   };
 
-  const startGame = () => {
-    setGameStarted(true);
-    restartGame();
-  };
-
-  const restartGame = () => {
-    setScore(0);
-    setObstacles([]);
-    setGameOver(false);
-    setCharacterY(canvasHeight - 50);
-    setCharacterAction("run");
-    setCurrentSpeed(2);
-    if (gameLoopRef.current) {
-      requestAnimationFrame(gameLoopRef.current);
+  const gameLoop = useCallback(() => {
+    if (gameOver) {
+      if (gameLoopRef.current) cancelAnimationFrame(gameLoopRef.current);
+      return;
     }
-  };
-
-  useEffect(() => {
-    const drawSpeedGauge = (ctx: CanvasRenderingContext2D) => {
-      const MAX_SPEED = 50;
-      const gaugeWidth = 100;
-      const gaugeHeight = 20;
-      const x = 10;
-      const y = 10;
-
-      const progress = (currentSpeed - 8) / (MAX_SPEED - 8);
-      const red = Math.min(255, Math.floor(progress * 255));
-      const green = Math.max(0, 255 - Math.floor(progress * 255));
-      const color = `rgb(${red},${green},0)`;
-
-      ctx.fillStyle = "#ddd";
-      ctx.fillRect(x, y, gaugeWidth, gaugeHeight);
-
-      ctx.fillStyle = color;
-      ctx.fillRect(x, y, gaugeWidth * progress, gaugeHeight);
-
-      ctx.strokeStyle = "black";
-      ctx.strokeRect(x, y, gaugeWidth, gaugeHeight);
-
-      ctx.fillStyle = "black";
-      ctx.font = "12px Arial";
-      ctx.fillText(
-        `Speed: ${Math.round(progress * 100)}%`,
-        x + gaugeWidth + 10,
-        y + 15,
-      );
-    };
-
-    const drawObstacle = (
-      ctx: CanvasRenderingContext2D,
-      obstacle: { x: number; y: number; type: string },
-    ) => {
-      const emoji =
-        obstacle.type === "heart"
-          ? "❤️"
-          : obstacle.type === "box"
-            ? "📦"
-            : obstacle.type === "bomb"
-              ? "💣"
-              : obstacle.type === "flower"
-                ? "🌸"
-                : "🐶";
-      ctx.font = "20px Arial";
-      ctx.fillText(emoji, obstacle.x, obstacle.y);
-    };
-
-    const drawBackground = (ctx: CanvasRenderingContext2D) => {
-      const gradient = ctx.createLinearGradient(
-        0,
-        0,
-        canvasWidth,
-        canvasHeight,
-      );
-      gradient.addColorStop(0, "#a8e6cf");
-      gradient.addColorStop(1, "#dcedc1");
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, canvasWidth, canvasHeight);
-    };
-
-    const drawGameOver = (ctx: CanvasRenderingContext2D) => {
-      ctx.fillStyle = "red";
-      ctx.font = "50px Arial";
-      ctx.textAlign = "center";
-      ctx.fillText("GAME OVER", canvasWidth / 2, canvasHeight / 2);
-    };
-
-    const drawCharacter = (ctx: CanvasRenderingContext2D) => {
-      ctx.fillStyle = "blue";
-      ctx.fillRect(50, characterY, 20, 50);
-    };
-
-    if (!gameStarted) return;
 
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext("2d");
     if (!canvas || !ctx) return;
 
-    let animationFrameId: number;
+    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+    ctx.fillStyle = "#dcedc1";
+    ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
-    const spawnObstacle = () => {
-      setObstacles((prev) => {
-        if (prev.length >= 5) return prev;
+    // Dessiner le personnage
+    ctx.fillStyle = "blue";
+    ctx.fillRect(50, characterY, characterWidth, characterHeight);
 
-        const obstacleTypes = ["heart", "box", "bomb", "flower", "animal"];
-        const type =
-          obstacleTypes[Math.floor(Math.random() * obstacleTypes.length)];
+    // Mise à jour des obstacles
+    obstaclesRef.current = obstaclesRef.current
+      .map((obj) => {
+        const updatedObj = { ...obj, x: obj.x - currentSpeed };
 
-        const yPositions = [
-          canvasHeight - 20,
-          canvasHeight - 60,
-          canvasHeight - 100,
-          canvasHeight - 140,
-        ];
-        const y = yPositions[Math.floor(Math.random() * yPositions.length)];
+        const obstacleWidth = 40;
+        const obstacleHeight = 40;
 
-        return [...prev, { x: canvasWidth, y, type, wasScored: false }];
-      });
-    };
+        const isColliding =
+          updatedObj.x < 50 + characterWidth &&
+          updatedObj.x + obstacleWidth > 50 &&
+          updatedObj.y < characterY + characterHeight &&
+          updatedObj.y + obstacleHeight > characterY;
 
-    const gameLoop = () => {
-      ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-      drawBackground(ctx);
-      drawSpeedGauge(ctx);
-      drawCharacter(ctx);
-      gameLoopRef.current = gameLoop;
+        if (isColliding) {
+          if (!updatedObj.wasScored) {
+            if (updatedObj.type === "heart") {
+              setUserGameScore((prevScore) => prevScore + 4);
+            } else if (updatedObj.type === "bomb") {
+              setGameOver(true);
+              setShowGameOver(true);
+              setUserScores((prevScore) => prevScore + userGameScore);
+              setUserGameScore(0);
 
-      // Mettre à jour les obstacles
-      setObstacles((prev) =>
-        prev
-          .map((obj) => {
-            const updatedObj = { ...obj, x: obj.x - currentSpeed };
-
-            // Vérifier les collisions avec le joueur
-            if (
-              updatedObj.x < 70 &&
-              updatedObj.x > 50 &&
-              Math.abs(updatedObj.y - characterY) < 30
-            ) {
-              if (!updatedObj.wasScored) {
-                if (updatedObj.type === "heart") {
-                  setScore((prevScore) => prevScore + 4);
-                } else if (updatedObj.type === "bomb") {
-                  setGameOver(true);
-                } else {
-                  setScore((prevScore) => prevScore + 1);
-                }
-                updatedObj.wasScored = true;
+              if (gameLoopRef.current) {
+                cancelAnimationFrame(gameLoopRef.current);
               }
+              return null;
+            } else {
+              setUserGameScore((prevScore) => prevScore + 1);
             }
+            updatedObj.wasScored = true;
+            return null;
+          }
+        }
 
-            return updatedObj.x > -50 ? updatedObj : null;
-          })
-          .filter(
-            (
-              obj,
-            ): obj is {
-              x: number;
-              y: number;
-              type: string;
-              wasScored: boolean;
-            } => obj !== null,
-          ),
+        return updatedObj.x > -50 ? updatedObj : null;
+      })
+      .filter(
+        (
+          obj,
+        ): obj is { x: number; y: number; type: string; wasScored: boolean } =>
+          obj !== null,
       );
 
-      for (const obj of obstacles) {
-        drawObstacle(ctx, obj);
-      }
+    // Dessiner les obstacles
+    for (const { x, y, type } of obstaclesRef.current) {
+      const emoji = type === "heart" ? "❤️" : type === "bomb" ? "💣" : "📦";
+      ctx.font = "40px Arial";
+      ctx.fillText(emoji, x, y);
+    }
 
-      if (!gameOver) {
-        animationFrameId = requestAnimationFrame(gameLoop);
-      } else {
-        drawGameOver(ctx);
-      }
-    };
+    // 🔥 Afficher "GAME OVER" au centre en cas de défaite
+    if (gameOver) {
+      ctx.fillStyle = "red";
+      ctx.font = "80px Arial"; // 🔥 Texte en gros
+      ctx.textAlign = "center";
+      ctx.fillText("GAME OVER", canvasWidth / 2, canvasHeight / 2);
+    }
 
-    const obstacleInterval = setInterval(spawnObstacle, gameInterval);
+    gameLoopRef.current = requestAnimationFrame(gameLoop);
+  }, [
+    characterY,
+    currentSpeed,
+    gameOver,
+    setUserScores,
+    userGameScore,
+    characterHeight,
+  ]);
 
+  const spawnObstacle = useCallback(() => {
+    if (obstaclesRef.current.length >= 5) return;
+
+    const obstacleTypes = ["heart", "box", "bomb"];
+    const type =
+      obstacleTypes[Math.floor(Math.random() * obstacleTypes.length)];
+
+    const y = Math.random() * (canvasHeight - 35); // 🔥 Position aléatoire en hauteur
+
+    obstaclesRef.current.push({ x: canvasWidth, y, type, wasScored: false });
+  }, []);
+
+  const startGame = () => {
+    setGameStarted(true);
+    restartGame();
+    setUserGameScore(0);
+  };
+
+  const restartGame = () => {
+    obstaclesRef.current = [];
+    setGameOver(false);
+    setCharacterY(canvasHeight - 50);
+    setCharacterAction("run");
+    setCurrentSpeed(6);
+    setUserGameScore(0);
+
+    if (gameLoopRef.current) {
+      cancelAnimationFrame(gameLoopRef.current);
+    }
+    gameLoopRef.current = requestAnimationFrame(gameLoop);
+  };
+
+  useEffect(() => {
+    if (!gameStarted) return;
+
+    const obstacleInterval = setInterval(spawnObstacle, 800);
     gameLoop();
 
     return () => {
-      cancelAnimationFrame(animationFrameId);
+      if (gameLoopRef.current) cancelAnimationFrame(gameLoopRef.current);
       clearInterval(obstacleInterval);
     };
-  }, [gameStarted, gameOver, obstacles, currentSpeed, characterY]);
-
-  useEffect(() => {
-    if (score >= 50) {
-      setCurrentSpeed((prevSpeed) => Math.min(prevSpeed + 2, 50));
-    }
-  }, [score]);
+  }, [gameStarted, gameLoop, spawnObstacle]);
 
   return (
-    <div
-      className="walkingclass"
-      onKeyDown={handleKeyDown}
-      onKeyUp={handleKeyUp}
-      style={{ outline: "none" }}
-    >
-      <p>Game Score: {score}</p>
-      <canvas
-        ref={canvasRef}
-        width={canvasWidth}
-        height={canvasHeight}
-        style={{ border: "1px solid black", background: "#eee" }}
+    <>
+      <div
+        className="walkingclass"
+        onKeyDown={handleKeyDown}
+        onKeyUp={handleKeyUp}
       >
-        {" "}
-      </canvas>
-      {gameOver && (
-        <p style={{ color: "red" }}>Game Over! Score final : {score}</p>
-      )}
-      {!gameStarted ? (
-        <button type="button" onClick={startGame}>
-          Start
-        </button>
-      ) : (
-        <button type="button" onClick={restartGame}>
-          Restart
-        </button>
-      )}
-    </div>
+        <p>Score {userGameScore}</p>
+        <canvas
+          ref={canvasRef}
+          width={canvasWidth}
+          height={canvasHeight}
+          style={{ border: "1px solid black" }}
+        />
+        {!gameStarted ? (
+          <button type="button" onClick={startGame}>
+            Start
+          </button>
+        ) : (
+          <button type="button" onClick={restartGame}>
+            Restart
+          </button>
+        )}
+      </div>
+      {showGameOver && <div className="game-over-overlay">GAME OVER</div>}
+    </>
   );
 };
 

@@ -64,8 +64,8 @@ html {
 
 .score {
   position: absolute;
-  bottom: 10px;
-  left: 10px;
+  bottom: 2vh;
+  left: 2vw;
   font-size: 20px;
   font-weight: bold;
   z-index: 2;

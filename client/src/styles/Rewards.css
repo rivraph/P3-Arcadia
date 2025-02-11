@@ -1,44 +1,101 @@
 .mainrewards {
-  width: 100vw;
+  width: 90vw;
   height: 70vh;
+  overflow-y: scroll;
+  scrollbar-color: var(--color1-) white;
+  scrollbar-width: thin;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  gap: 3em;
+  @media screen and (max-width: 992px) {
+    width: 80vw;
+    gap: 6em;
+  }
 }
 
 .mainrewards h1 {
   margin: 0;
   text-shadow: 2px 2px 5px black;
-  width: 100vh;
+  width: 100vw;
   text-align: center;
+}
+
+.rewards {
+  display: flex;
+  flex: 1 1 calc(33.33% - 16px);
+  position: relative;
+  left: 10vw;
+  width: 10vw;
+  max-height: 60%;
+  max-width: calc(27% - 16px);
+  align-items: center;
+  @media screen and (max-width: 992px) {
+    flex: 1 1 100%;
+    max-width: 100%;
+    top: 4vh;
+    left: 0;
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+.number {
+  position: relative;
+  bottom: 195px;
+  right: 50px;
+  color: var(--color1-);
+  font-size: 50px;
+  text-shadow: black 2px 2px 0px;
 }
 
 .points-card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-shadow: 0px 0px 10px 15px #a14ed9c7;
   width: 250px;
   height: 350px;
-  padding: 2rem;
+  padding: 1rem;
 }
 
 .points-card img {
   margin-bottom: 1rem;
-  box-shadow: 0px 0px 10px 15px #a14ed9c7;
-
-  height: 250px;
+  box-shadow: 0px 0px 10px 15px var(--color1-);
+  width: 250px;
+  height: 350px;
 }
 
 .points-card button {
-  box-shadow: 0px 0px 10px 15px #a14ed9c7;
+  box-shadow: 0px 0px 10px 15px var(--color1-);
   margin-top: auto;
+  position: relative;
+  width: 10vw;
+  font-size: 2vh;
+  bottom: 46vh;
+  text-shadow: var(--color1-) 0px 0px 3px;
+  @media screen and (max-width: 992px) {
+    width: 40vw;
+    bottom: 53vh;
+  }
 }
 
-.rewards {
-  display: flex;
-  gap: 200px;
-  margin-top: 20px;
+.mainrewards p {
+  text-align: center;
+  position: relative;
+  bottom: 23vh;
+  background-color: var(--color1-);
+  text-shadow: black 0px 0px 3px;
+  @media screen and (max-width: 992px) {
+    bottom: 26vh;
+  }
+}
+
+.rewards.disabled {
+  opacity: 0.7; /* Rend la carte plus transparente */
+  pointer-events: none; /* Empêche toute interaction */
+}
+
+.rewards.disabled button {
+  cursor: not-allowed; /* Change le curseur pour montrer que c'est désactivé */
+  background-color: #ccc; /* Grise le bouton */
+  color: #666;
 }

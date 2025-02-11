@@ -2,7 +2,10 @@
   display: block;
   margin: 20px auto;
   width: 78vw;
-  height: 56vh;
+  height: 57vh;
+  position: relative;
+  left: 39vw;
+  top: 1vh;
 }
 
 .walkingclass button {
@@ -19,7 +22,7 @@
   display: inline-block;
   margin: 4px 2px;
   position: relative;
-  left: 35vw;
+  left: 75vw;
   top: -1vh;
   cursor: pointer;
   transition-duration: 0.4s;
@@ -35,9 +38,21 @@
   position: relative;
   z-index: 20;
   top: -4vh;
-  left: 60vw;
+  left: 102vw;
   font-size: 18px;
   text-shadow: 0px 0px 5px #f2c53d;
   font-size: 200%;
   width: 15vw;
+}
+
+.game-over-overlay {
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  transform: translate(-50%, -50%);
+  font-size: 80px;
+  font-weight: bold;
+  color: red;
+  text-shadow: 4px 4px 10px black;
+  z-index: 1000;
 }

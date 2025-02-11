@@ -1,6 +1,9 @@
+import type React from "react";
+import { useState } from "react";
 import "../styles/Header.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import Connexion from "./Connexion";
+import Basket from "./basket";
 
 interface headerProps {
   isMenuOpen: boolean;
@@ -9,6 +12,8 @@ interface headerProps {
 }
 
 function Header({ isMenuOpen, setIsMenuOpen, menuRef }: headerProps) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const isHomePage =
@@ -17,77 +22,93 @@ function Header({ isMenuOpen, setIsMenuOpen, menuRef }: headerProps) {
     location.pathname === "/";
 
   const toggleMenu = () => {
-    if (isMenuOpen === false) {
-      setIsMenuOpen(true);
-    }
-    if (isMenuOpen === true) {
-      setIsMenuOpen(false);
-    }
+    setIsMenuOpen((prevState) => !prevState);
   };
 
-  const handleMenuClick = (e: React.MouseEvent<HTMLLIElement>) => {
+  const handleMenuClick = (
+    e: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>,
+  ) => {
+    if (e instanceof KeyboardEvent && (e.key === "Enter" || e.key === " ")) {
+      e.preventDefault();
+    }
+
     const target = e.target as HTMLLIElement;
     console.info(target.textContent);
     if (localStorage.getItem("role") === "user") {
-      if (target.textContent === "Games list") {
-        navigate("/users/gamelist");
-      }
-      if (target.textContent === "My Profile") {
-        navigate("/users/profil");
-      }
-      if (target.textContent === "Scores History") {
-        navigate("/users/scoreshistory");
-      }
-      if (target.textContent === "Rewards") {
-        navigate("/users/rewards");
-      }
-      if (target.textContent === "Rewards History") {
-        navigate("/users/rewardshistory");
-      }
-      if (target.textContent === "Contact us") {
-        navigate("/users/contact");
-      }
-      if (target.textContent === "Arcadia PlayStore") {
-        navigate("/users/about");
-      }
-      if (target.textContent === "Disconnect") {
-        navigate("/homepage");
+      switch (target.textContent) {
+        case "Games list":
+          navigate("/users/gamelist");
+          break;
+        case "My Profile":
+          navigate("/users/profil");
+          break;
+        /*  case "Scores History":
+          navigate("/users/scoreshistory");
+          break; */
+        case "Rewards":
+          navigate("/users/rewards");
+          break;
+        /*  case "Rewards History":
+          navigate("/users/rewardshistory");
+          break; */
+        case "Contact us":
+          navigate("/users/contact");
+          break;
+        case "Arcadia PlayStore":
+          navigate("/users/about");
+          break;
+        case "Disconnect":
+          navigate("/homepage");
+          break;
+        default:
+          break;
       }
     }
     if (localStorage.getItem("role") === "boss") {
-      if (target.textContent === "Games list") {
-        navigate("/admin/gamelist");
-      }
-      if (target.textContent === "My Profile") {
-        navigate("/admin/profil");
-      }
-      if (target.textContent === "Scores History") {
-        navigate("/admin/scoreshistory");
-      }
-      if (target.textContent === "Rewards") {
-        navigate("/admin/rewards");
-      }
-      if (target.textContent === "Rewards History") {
-        navigate("/admin/rewardshistory");
-      }
-      if (target.textContent === "Contact us") {
-        navigate("/admin/contact");
-      }
-      if (target.textContent === "Arcadia PlayStore") {
-        navigate("/admin/about");
-      }
-      if (target.textContent === "Disconnect") {
-        navigate("/homepage");
+      switch (target.textContent) {
+        case "Games list":
+          navigate("/admin/gamelist");
+          break;
+        case "My Profile":
+          navigate("/admin/profil");
+          break;
+        /*  case "Scores History":
+          navigate("/admin/scoreshistory");
+          break; */
+        case "Rewards":
+          navigate("/admin/rewards");
+          break;
+        /* case "Rewards History":
+          navigate("/admin/rewardshistory");
+          break; */
+        case "Contact us":
+          navigate("/admin/contact");
+          break;
+        case "Arcadia PlayStore":
+          navigate("/admin/about");
+          break;
+        case "Disconnect":
+          navigate("/homepage");
+          break;
+        default:
+          break;
       }
     }
     setIsMenuOpen(false);
   };
 
-  const handleKeyPress = (event: React.KeyboardEvent) => {
-    if (event.key === "Enter" || event.key === " ") {
-      toggleMenu();
-    }
+  const handleLoginButtonClick = () => {
+    setIsModalOpen(true);
+    setIsOverlayVisible(true);
   };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setIsOverlayVisible(false);
+  };
+
+  const idNumber = localStorage.getItem("id");
+  const isConnect = Boolean(idNumber);
 
   return (
     <div className="header" ref={menuRef}>
@@ -97,70 +118,118 @@ function Header({ isMenuOpen, setIsMenuOpen, menuRef }: headerProps) {
             MENU
           </button>
         )}
-        <ul
-          className="list-group"
-          style={{ display: isMenuOpen ? "block" : "none" }}
-        >
-          <li
-            className="limenu"
-            onClick={handleMenuClick}
-            onKeyUp={handleKeyPress}
-          >
-            Games list
-          </li>
-          <li
-            className="limenu"
-            onClick={handleMenuClick}
-            onKeyUp={handleKeyPress}
-          >
-            My Profile
-          </li>
-          <li
-            className="limenu"
-            onClick={handleMenuClick}
-            onKeyUp={handleKeyPress}
-          >
-            Scores History
-          </li>
-          <li
-            className="limenu"
-            onClick={handleMenuClick}
-            onKeyUp={handleKeyPress}
-          >
-            Rewards
-          </li>
-          <li
-            className="limenu"
-            onClick={handleMenuClick}
-            onKeyUp={handleKeyPress}
-          >
-            Rewards History
-          </li>
-          <li
-            className="limenu"
-            onClick={handleMenuClick}
-            onKeyUp={handleKeyPress}
-          >
-            Contact us
-          </li>
-          <li
-            className="limenu"
-            onClick={handleMenuClick}
-            onKeyUp={handleKeyPress}
-          >
-            Arcadia PlayStore
-          </li>
-          <li
-            className="limenu"
-            onClick={handleMenuClick}
-            onKeyUp={handleKeyPress}
-          >
-            Disconnect
-          </li>
-        </ul>
+
+        <div
+          className={`overlay ${isOverlayVisible ? "show" : ""}`}
+          onClick={handleCloseModal}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") handleCloseModal();
+          }}
+        />
+        <div className={`modal ${isModalOpen ? "show" : ""}`}>
+          <Connexion />
+          <button type="button" onClick={handleCloseModal}>
+            Close
+          </button>
+        </div>
+        <div className="mobilebasket">
+          {!isHomePage && isConnect && <Basket />}
+        </div>
       </div>
       <img src="/assets/logo.png" alt="logo du site" />
-      <div className="headerconnexion">{isHomePage && <Connexion />}</div>
+      <div className="headerconnexion">
+        {isHomePage && <Connexion />}
+        {!isHomePage && isConnect && <Basket />}
+      </div>
+
+      <button
+        type="button"
+        className="login-button"
+        onClick={handleLoginButtonClick}
+        style={{ display: isHomePage ? "inline-block" : "none" }}
+      >
+        Login
+      </button>
+
+      <ul
+        className="list-group"
+        style={{ display: isMenuOpen ? "block" : "none" }}
+      >
+        <li
+          className="limenu"
+          onClick={handleMenuClick}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") handleMenuClick(e);
+          }}
+        >
+          Games list
+        </li>
+        <li
+          className="limenu"
+          onClick={handleMenuClick}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") handleMenuClick(e);
+          }}
+        >
+          My Profile
+        </li>
+        {/*  <li
+          className="limenu"
+          onClick={handleMenuClick}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") handleMenuClick(e);
+          }}
+        >
+          Scores History
+        </li> */}
+        <li
+          className="limenu"
+          onClick={handleMenuClick}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") handleMenuClick(e);
+          }}
+        >
+          Rewards
+        </li>
+        {/*  <li
+          className="limenu"
+          onClick={handleMenuClick}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") handleMenuClick(e);
+          }}
+        >
+          Rewards History
+        </li> */}
+        <li
+          className="limenu"
+          onClick={handleMenuClick}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") handleMenuClick(e);
+          }}
+        >
+          Contact us
+        </li>
+        <li
+          className="limenu"
+          onClick={handleMenuClick}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") handleMenuClick(e);
+          }}
+        >
+          Arcadia PlayStore
+        </li>
+        <li
+          className="limenu"
+          onClick={handleMenuClick}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") handleMenuClick(e);
+          }}
+        >
+          Disconnect
+        </li>
+      </ul>
     </div>
   );
 }

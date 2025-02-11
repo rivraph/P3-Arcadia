@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import "../styles/homePage.css";
+import { useEffect } from "react";
 
 function homePage() {
-  localStorage.setItem("role", "");
-  localStorage.setItem("prenom", "");
-  localStorage.setItem("id", "");
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
 
   return (
     <div className="mainhomepage">
@@ -41,6 +42,18 @@ function homePage() {
         </h2>
         <Link to="/register" className="button-link-homepage">
           Register Now
+        </Link>
+      </div>
+      <div className="mobilemaindiv">
+        <h1>Welcome to ARCADIA :</h1>
+        <h2>Join the fun, play your favorite games, and earn rewards!</h2>
+
+        <h3>
+          Join ARCADIA now. Connect, play, win... and meet us indoors for
+          authentic arcade fun!
+        </h3>
+        <Link to="/register" className="button-link-homepage">
+          🎮 Register Now🎮
         </Link>
       </div>
     </div>

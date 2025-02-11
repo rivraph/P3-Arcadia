@@ -24,6 +24,7 @@ CREATE TABLE users (
 CREATE TABLE scores (
   id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
   users_id INT NOT NULL,
+  user_points INT NULL,
   game_max_score_id INT DEFAULT NULL,
   game_max_score INT DEFAULT NULL,
   FOREIGN KEY (users_id) REFERENCES users(id),
@@ -33,6 +34,8 @@ CREATE TABLE scores (
 CREATE TABLE articles (
   id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
   article_name VARCHAR(100) NOT NULL,
+  debpoints INT NOT NULL,
+  parts INT NOT NULL,
   description VARCHAR(255) NOT NULL
 );
 
@@ -56,11 +59,17 @@ VALUES
 
 
 -- Inserts dans Articles
-INSERT INTO articles (id, article_name, description)
+INSERT INTO articles (id, article_name, debpoints, parts, description)
 VALUES
-  (1, "bon n°1", "Echange de 500 points contre 1 partie chez Arcadia Palace"),
-  (2, "bon n°2", "Echange de 1200 points contre 2 parties chez Arcadia Palace"),
-  (3, "bon n°3", "Echange de 3000 points contre 4 parties chez Arcadia Palace");
+  (1, 'Buy for 100 points', 100, 1, 'Exchange for 1 part in Arcadia PlayStore'),
+  (2, 'Buy for 500 points', 500, 5, 'Exchange for 5 parts in Arcadia PlayStore'),
+  (3, 'Buy for 1000 points', 1000, 10, 'Exchange for 10 parts in Arcadia PlayStore'),
+  (4, 'Buy for 2000 points', 2000, 20, 'Exchange for 20 parts in Arcadia PlayStore'),
+  (5, 'Buy for 5000 points', 5000, 50, 'Exchange for 50 parts in Arcadia PlayStore'),
+  (6, 'Buy for 10k points', 10000, 100, 'Exchange for 100 parts in Arcadia PlayStore'),
+  (7, 'Buy for 20k points', 20000, 200, 'Exchange for 200 parts in Arcadia PlayStore'),
+  (8, 'Buy for 50k points', 50000, 500, 'Exchange for 500 parts in Arcadia PlayStore'),
+  (9, 'Buy for 100k points', 100000, 1, 'One month free in Arcadia PlayStore');
 
 -- Inserts dans Games
 INSERT INTO games (id, game_name, source)
@@ -73,3 +82,8 @@ VALUES
 INSERT INTO rewards (id, article_id, user_id, exchange_date, transaction_number)
 VALUES
   (1, 1, 1, "2025-01-15", "202501150001");
+
+  -- Inserts dans Scores
+INSERT INTO scores (id, users_id, user_points, game_max_score_id, game_max_score)
+VALUES
+  (1, 1, 50000, NULL, 0); 
