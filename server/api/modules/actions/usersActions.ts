@@ -1,5 +1,5 @@
 import type { NextFunction, Request, RequestHandler, Response } from "express";
-import usersRepository from "./usersRepository";
+import usersRepository from "../repository/usersRepository";
 
 type usersprops = {
   firstname: string;
