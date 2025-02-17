@@ -8,7 +8,8 @@ function Connexion() {
   const [password, setPassword] = useState("");
   const [isMobile, setIsMobile] = useState(false);
   const navigate = useNavigate();
-  const { userId, setUserId } = useContextProvider();
+  const { userId, setUserId, setIsModalOpen, setIsOverlayVisible } =
+    useContextProvider();
   console.info("userId", userId);
 
   const handlePasswordChange: React.ChangeEventHandler<HTMLInputElement> = (
@@ -48,12 +49,15 @@ function Connexion() {
         localStorage.setItem("id", id);
         localStorage.setItem("prenom", firstname);
         localStorage.setItem("role", role);
+        setIsOverlayVisible(false);
+        setIsModalOpen(false);
 
         // Redirection basée sur le rôle
         if (localStorage.getItem("role") === "boss") {
           if (isMobile) {
             window.alert("Admin login is not available on mobile");
-            navigate("/"); // Redirige vers la page d'accueil ou une autre page
+            navigate("/");
+            // Redirige vers la page d'accueil ou une autre page
             return null;
           }
           console.info("navigue vers admin");
@@ -63,7 +67,8 @@ function Connexion() {
           navigate("/users/gamelist");
         } else {
           console.info("erreur donc navigue vers homepage");
-          navigate("/homepage"); // Par défaut, redirige vers la homepage
+          navigate("/homepage");
+          // Par défaut, redirige vers la homepage
         }
       } else {
         console.info("Échec de la connexion :", await response.json());
