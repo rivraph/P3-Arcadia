@@ -2,6 +2,7 @@ import type React from "react";
 import { useState } from "react";
 import "../styles/Header.css";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useContextProvider } from "../components/context/ArcadiaContext";
 import Connexion from "./Connexion";
 import Basket from "./basket";
 
@@ -16,11 +17,13 @@ function Header({ isMenuOpen, setIsMenuOpen, menuRef }: headerProps) {
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const { userData } = useContextProvider();
   const isHomePage =
     location.pathname === "/homepage" ||
     location.pathname === "/register" ||
     location.pathname === "/";
-
+  const role = userData.role;
+  const isAdmin = role === "boss";
   const toggleMenu = () => {
     setIsMenuOpen((prevState) => !prevState);
   };
@@ -68,6 +71,9 @@ function Header({ isMenuOpen, setIsMenuOpen, menuRef }: headerProps) {
       switch (target.textContent) {
         case "Games list":
           navigate("/admin/gamelist");
+          break;
+        case "Admin Page":
+          navigate("/admin/adminpage");
           break;
         case "My Profile":
           navigate("/admin/profil");
@@ -157,6 +163,17 @@ function Header({ isMenuOpen, setIsMenuOpen, menuRef }: headerProps) {
         className="list-group"
         style={{ display: isMenuOpen ? "block" : "none" }}
       >
+        {isAdmin && (
+          <li
+            className="limenu"
+            onClick={handleMenuClick}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") handleMenuClick(e);
+            }}
+          >
+            Admin Page
+          </li>
+        )}
         <li
           className="limenu"
           onClick={handleMenuClick}

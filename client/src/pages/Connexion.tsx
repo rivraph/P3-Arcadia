@@ -51,7 +51,7 @@ function Connexion() {
         // Redirection basée sur le rôle
         if (localStorage.getItem("role") === "boss") {
           console.info("navigue vers admin");
-          navigate("/admin/profil");
+          navigate("/admin/adminpage");
         } else if (localStorage.getItem("role") === "user") {
           console.info("navigue vers users");
           navigate("/users/gamelist");
