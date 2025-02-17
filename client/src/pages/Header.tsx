@@ -1,5 +1,4 @@
 import type React from "react";
-import { useState } from "react";
 import "../styles/Header.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useContextProvider } from "../components/context/ArcadiaContext";
@@ -13,11 +12,16 @@ interface headerProps {
 }
 
 function Header({ isMenuOpen, setIsMenuOpen, menuRef }: headerProps) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const { userData } = useContextProvider();
+  const {
+    userData,
+    isModalOpen,
+    setIsModalOpen,
+    handleCloseModal,
+    isOverlayVisible,
+    setIsOverlayVisible,
+  } = useContextProvider();
   const isHomePage =
     location.pathname === "/homepage" ||
     location.pathname === "/register" ||
@@ -106,11 +110,6 @@ function Header({ isMenuOpen, setIsMenuOpen, menuRef }: headerProps) {
   const handleLoginButtonClick = () => {
     setIsModalOpen(true);
     setIsOverlayVisible(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setIsOverlayVisible(false);
   };
 
   const idNumber = localStorage.getItem("id");

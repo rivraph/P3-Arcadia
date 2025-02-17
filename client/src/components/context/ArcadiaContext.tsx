@@ -33,6 +33,11 @@ const ContextArcadia = createContext<ContextArcadiaType>({
   handleEditClick: () => {},
   toggleSwitch: () => {},
   setUserIdArray: () => {},
+  isModalOpen: false,
+  setIsModalOpen: () => {},
+  handleCloseModal: () => {},
+  isOverlayVisible: false,
+  setIsOverlayVisible: () => {},
 });
 
 type ContextArcadiaType = {
@@ -54,6 +59,11 @@ type ContextArcadiaType = {
   handleKeyPress: (event: React.KeyboardEvent) => void;
   handleEditClick: () => void;
   toggleSwitch: () => void;
+  isModalOpen: boolean;
+  setIsModalOpen: Dispatch<SetStateAction<boolean>>;
+  handleCloseModal: () => void;
+  setIsOverlayVisible: Dispatch<SetStateAction<boolean>>;
+  isOverlayVisible: boolean;
 };
 
 type UserData = {
@@ -76,6 +86,8 @@ type UserData = {
 function ContextProvider({ children }: { children: React.ReactNode }) {
   const [debPoints, setDebPoints] = useState<number>(0);
   const [userScores, setUserScores] = useState<number>(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const [userId, setUserId] = useState<number>(() => {
     const id = localStorage.getItem("id");
     return id ? Number(id) : 0;
@@ -281,6 +293,11 @@ function ContextProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setIsOverlayVisible(false);
+  };
+
   return (
     <ContextArcadia.Provider
       value={{
@@ -300,6 +317,11 @@ function ContextProvider({ children }: { children: React.ReactNode }) {
         setEdit,
         edit,
         toggleSwitch,
+        isModalOpen,
+        setIsModalOpen,
+        handleCloseModal,
+        isOverlayVisible,
+        setIsOverlayVisible,
       }}
     >
       {children}
