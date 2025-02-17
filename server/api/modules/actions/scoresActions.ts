@@ -1,5 +1,5 @@
 import type { RequestHandler } from "express";
-import scoresRepository from "../scores/scoresRepository";
+import scoresRepository from "../repository/scoresRepository";
 
 const browse: RequestHandler = async (req, res, next) => {
   try {

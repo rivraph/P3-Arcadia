@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "../styles/Connexion.css";
 import { useNavigate } from "react-router-dom";
 import { useContextProvider } from "../components/context/ArcadiaContext";
@@ -6,6 +6,7 @@ import { useContextProvider } from "../components/context/ArcadiaContext";
 function Connexion() {
   const emailRef = useRef<HTMLInputElement>(null);
   const [password, setPassword] = useState("");
+  const [isMobile, setIsMobile] = useState(false);
   const navigate = useNavigate();
   const { userId, setUserId } = useContextProvider();
   console.info("userId", userId);
@@ -50,6 +51,11 @@ function Connexion() {
 
         // Redirection basée sur le rôle
         if (localStorage.getItem("role") === "boss") {
+          if (isMobile) {
+            window.alert("Admin login is not available on mobile");
+            navigate("/"); // Redirige vers la page d'accueil ou une autre page
+            return null;
+          }
           console.info("navigue vers admin");
           navigate("/admin/adminpage");
         } else if (localStorage.getItem("role") === "user") {
@@ -70,6 +76,17 @@ function Connexion() {
       navigate("/homepage");
     }
   };
+
+  useEffect(() => {
+    // Vérifier la taille de l'écran à chaque redimensionnement
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth < 768); // Par exemple, < 768px = mobile
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
 
   return (
     <>
