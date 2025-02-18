@@ -81,20 +81,26 @@ const GameList = () => {
   }, []);
 
   return (
-    <div
-      className="gamelist-main"
-      onClick={handlePlayClick}
-      onKeyUp={handleKeyUp}
-    >
-      {gamesData.map((g) => (
-        <div className="game-list" key={g.id}>
-          <button type="button" className="game-card">
-            <h2>{g.game_name}</h2>
-            <img src="../assets/arcadiagamescreen.png" alt={g.id} />
-          </button>
-        </div>
-      ))}
-    </div>
+    <>
+      <p className="mobiledev">
+        The mobile version is in development, for playing come to the desktop
+        version
+      </p>
+      <div
+        className="gamelist-main"
+        onClick={handlePlayClick}
+        onKeyUp={handleKeyUp}
+      >
+        {gamesData.map((g) => (
+          <div className="game-list" key={g.id}>
+            <button type="button" className="game-card">
+              <h2>{g.game_name}</h2>
+              <img src="../assets/arcadiagamescreen.png" alt={g.id} />
+            </button>
+          </div>
+        ))}
+      </div>
+    </>
   );
 };
 
