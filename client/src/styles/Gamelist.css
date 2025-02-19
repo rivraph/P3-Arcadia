@@ -60,6 +60,7 @@
   .gamelist-main {
     display: none;
   }
+
   .mobiledev {
     width: 80vw;
     max-width: 400px;
@@ -86,6 +87,7 @@
   }
   .gamelist-main h2 {
     font-size: 200%;
-    height: 8vh;
+    height: 10vh;
+    margin-bottom: -8vh;
   }
 }
