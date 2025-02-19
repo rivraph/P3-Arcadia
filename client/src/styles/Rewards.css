@@ -74,7 +74,7 @@
   text-shadow: var(--color1-) 0px 0px 3px;
   @media screen and (max-width: 992px) {
     width: 40vw;
-    bottom: 53vh;
+    bottom: 65vh;
   }
 }
 
@@ -84,8 +84,9 @@
   bottom: 23vh;
   background-color: var(--color1-);
   text-shadow: black 0px 0px 3px;
+  box-shadow: 0px 0px 5px 5px #ffffff6b;
   @media screen and (max-width: 992px) {
-    bottom: 26vh;
+    bottom: 31vh;
   }
 }
 
