@@ -55,10 +55,10 @@
 @media screen and (max-width: 992px) {
   .contactcontener {
     background-color: #a14ed9de;
-    width: 100%;
+    width: 90%;
     height: 75%;
     overflow-y: auto;
-    margin-top: -3vh;
+    margin: 0 5% 0 5%;
   }
   .contactform #message {
     margin-bottom: 10px;
