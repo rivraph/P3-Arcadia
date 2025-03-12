@@ -1,21 +1,34 @@
-// Get variables from .env file for database connection
-const { DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME } = process.env;
-
-// Create a connection pool to the database
 import mysql from "mysql2/promise";
 
+// Parse DATABASE_URL
+const DATABASE_URL = process.env.DATABASE_URL;
+
+if (!DATABASE_URL) {
+  throw new Error("DATABASE_URL is not defined in the environment variables.");
+}
+
+// Extraire les informations de la DATABASE_URL
+const url = new URL(DATABASE_URL);
+
+const DB_HOST = url.hostname;
+const DB_PORT = Number(url.port);
+const DB_USER = url.username;
+const DB_PASSWORD = url.password;
+const DB_NAME = url.pathname.replace(/^\//, ""); // Supprimer le slash initial
+
+// Créer un pool de connexions
 const client = mysql.createPool({
   host: DB_HOST,
-  port: Number.parseInt(DB_PORT as string),
+  port: DB_PORT,
   user: DB_USER,
   password: DB_PASSWORD,
   database: DB_NAME,
 });
 
-// Ready to export
+// Exporter le client
 export default client;
 
-// Types export
+// Exporter les types
 import type { Pool, ResultSetHeader, RowDataPacket } from "mysql2/promise";
 
 type DatabaseClient = Pool;
