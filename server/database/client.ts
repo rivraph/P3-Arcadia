@@ -9,12 +9,12 @@ if (!DATABASE_URL) {
 
 // Extraire les informations de la DATABASE_URL
 const url = new URL(DATABASE_URL);
-
+console.info(url);
 const DB_HOST = url.hostname;
 const DB_PORT = Number(url.port);
 const DB_USER = url.username;
 const DB_PASSWORD = url.password;
-const DB_NAME = url.pathname.replace(/^\//, ""); // Supprimer le slash initial
+const DB_NAME = url.pathname.replace(/^\//, ''); // Supprimer le slash initial
 
 // Créer un pool de connexions
 const client = mysql.createPool({
