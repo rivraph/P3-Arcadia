@@ -10,20 +10,19 @@ services:
     ports:
       - "3310:3310"
     environment:
-      APP_PORT: 3310
-      APP_SECRET: 123456789
-      DB_HOST: database
+      PORT: 3310
+      DB_HOST: mysql-8vdb.railway.internal
       DB_PORT: 3306
-      DB_USER: user
-      DB_PASSWORD: password
-      DB_NAME: js_template_fullstack
+      DB_USER: raphael
+      DB_PASSWORD: raphael974
+      DB_NAME: DB_NAME
       VITE_API_URL: ""
     depends_on:
       database:
         condition: service_healthy
 
   database:
-    image: mysql/mysql-server:8.0
+    image: mysql:9
     healthcheck:
       test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost", "-uuser", "-ppassword" ] # Command to check health.
       interval: 5s # Interval between health checks.
@@ -34,10 +33,10 @@ services:
       - ./database-setup.sh:/docker-entrypoint-initdb.d/setup.sh
     #      - db-data:/var/lib/mysql
     environment:
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
+      MYSQL_USER: raphael
+      MYSQL_PASSWORD: raphael974
       # Password for root access
-      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_ROOT_PASSWORD: raphael974
     ports:
       - target: 3306
         published: 3306
